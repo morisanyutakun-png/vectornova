@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Nova Academy</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- ===================== ヘッダー ===================== -->
+    <header>
+        <div class="header-container">
+            <h1>Vector Nova Academy</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">ホーム</a>
+                <a href="{{ url_for('pricing') }}">料金プラン</a>
+                <a href="{{ url_for('policy') }}">ポリシー</a>
+                <a href="{{ url_for('business_line') }}">質問・添削</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===================== メイン ===================== -->
+<main>
+
+    <!-- 強フェードインアニメーション -->
+    <style>
+    @keyframes strongFadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(40px) scale(0.9);
+            filter: blur(6px);
+        }
+        60% {
+            opacity: 0.7;
+            transform: translateY(15px) scale(1.03);
+            filter: blur(2px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+    }
+    </style>
+
+    <!-- 上部画像セクション -->
+    <section class="top-images" style="text-align:center; margin-bottom:55px; padding-top:40px;">
+        <div style="
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            gap:28px;
+            flex-wrap:wrap;
+        ">
+
+            <!-- 画像1 -->
+            <div style="
+                width:300px; 
+                height:235px; 
+                overflow:hidden; 
+                border-radius:20px; 
+                background:#fff;
+                box-shadow:0 18px 40px rgba(0,0,0,0.25);
+                animation: strongFadeIn 1.4s ease-out forwards;
+            ">
+                <img src="{{ url_for('static', filename='images/image1.PNG') }}" 
+                     alt="Image 1"
+                     style="width:100%; height:100%; object-fit:contain;">
+            </div>
+
+            <!-- 画像2 -->
+            <div style="
+                width:300px; 
+                height:235px; 
+                overflow:hidden; 
+                border-radius:20px; 
+                background:#fff;
+                box-shadow:0 18px 40px rgba(0,0,0,0.25);
+                animation: strongFadeIn 1.4s ease-out forwards;
+                animation-delay:0.2s;
+            ">
+                <img src="{{ url_for('static', filename='images/image2.PNG') }}" 
+                     alt="Image 2"
+                     style="width:100%; height:100%; object-fit:contain;">
+            </div>
+
+            <!-- 画像3 -->
+            <div style="
+                width:300px; 
+                height:235px; 
+                overflow:hidden; 
+                border-radius:20px; 
+                background:#fff;
+                box-shadow:0 18px 40px rgba(0,0,0,0.25);
+                animation: strongFadeIn 1.4s ease-out forwards;
+                animation-delay:0.4s;
+            ">
+                <img src="{{ url_for('static', filename='images/image3.PNG') }}" 
+                     alt="Image 3"
+                     style="width:100%; height:100%; object-fit:contain;">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Heroセクション -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">
+                名大生運営の<br>
+                <span class="highlight">完全オンライン添削質問塾</span>
+            </h2>
+            <p class="hero-subtitle">Vector Nova Academyは、誰でも質問・添削依頼ができるオンライン塾です。</p>
+
+            <!-- 特徴カード -->
+            <div class="features">
+    <span class="no-float">完全匿名で質問・添削可能</span>
+    <span class="no-float">名大生による安心・高品質サポート</span>
+    <span class="no-float">将来的にはGoogle Classroomとの連携・有料プランも予定</span>
+    </div>
+
+
+        <div style="text-align: center; margin-top: 50px; position: relative; display: inline-block;">
+    <!-- 強調バッジ -->
+    <div class="free-badge">無料！</div>
+
+    <a href="{{ url_for('business_line') }}" class="cta-link">
+        <button class="cta-button">LINEで質問・添削依頼を送る</button>
+    </a>
+</div>
+
+
+    </section>
+
+</main>
+
+
+    <!-- ===================== フッター ===================== -->
+    <footer>
+        <p>&copy; 2025 Vector Nova Academy</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,241 @@
+/* ==================== Google Fonts ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap'); /* 本文 */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap'); /* 見出し */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap'); /* 特徴カード */
+
+/* ==================== 基本設定 ==================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fefefe;
+    color: #1e1e1e;
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+/* ==================== ヘッダー ==================== */
+header {
+    background-color: #b91c1c;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 16px;
+    font-weight: 500;
+    transition: color 0.3s, transform 0.2s;
+}
+
+nav a:hover {
+    color: #fca5a5;
+    transform: translateY(-3px);
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+/* ==================== Heroセクション ==================== */
+.hero, .policy-hero, .hero-pricing {
+    background: #fff;
+    color: #b91c1c;
+    text-align: center;
+    padding: 140px 30px 100px;
+    max-width: 1000px;
+    margin: 60px auto 40px auto;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-title, .policy-hero .hero-title, .hero-pricing .hero-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+/* 名大生運営強調 */
+.hero-title .highlight, .policy-hero .hero-title .highlight, .hero-pricing .hero-title .highlight {
+    color: #1e1e1e;
+    background-color: #faff5c;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+/* サブタイトル */
+.hero-subtitle, .policy-hero .hero-subtitle, .hero-pricing .hero-subtitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 50px;
+    color: #b91c1c;
+}
+
+/* ==================== 特徴カード ==================== */
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 0 auto 50px auto;
+    max-width: 900px;
+}
+
+.features span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #1e1e1e;
+    background: linear-gradient(120deg, #fffa8c55, #fffa8c33);
+    padding: 16px 20px;
+    border-radius: 6px;
+    border-left: 4px solid #faff5c;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    cursor: default;
+    transition: none;
+}
+
+.features span::before {
+    content: "✔";
+    color: #b91c1c;
+    margin-right: 12px;
+}
+
+/* ==================== 料金プランカード ==================== */
+.plan-card {
+    background: #fff;
+    color: #b91c1c;
+    font-family: 'Montserrat', sans-serif;
+    flex: 0 0 320px;
+    padding: 50px 35px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+}
+
+.plan-card h3::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #b91c1c;
+    margin: 8px auto 0 auto;
+    border-radius: 2px;
+}
+
+.plan-card .price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+/* ==================== CTAボタン ==================== */
+.plan-card .cta-button,
+.cta-button {
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 18px 0;
+    background: linear-gradient(135deg, #41f63b, #63f1a5);
+    color: #fff;
+    border-radius: 60px;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+    transition: all 0.35s ease, transform 0.3s ease;
+}
+
+.plan-card .cta-button:hover,
+.cta-button:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.15);
+}
+
+/* ==================== 吹き出し ==================== */
+.click-badge,
+.free-badge {
+    position: absolute;
+    top: -36px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #f87171, #b91c1c);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    white-space: nowrap;
+    z-index: 10;
+    animation: float-badge 1.5s ease-in-out infinite;
+}
+
+.click-badge::after,
+.free-badge::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #b91c1c transparent transparent transparent;
+}
+
+@keyframes float-badge {
+    0%,100%{transform:translateX(-50%) translateY(0);}
+    50%{transform:translateX(-50%) translateY(-6px);}
+}
+
+/* ==================== フッター ==================== */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1rem;
+    color: #555;
+    background-color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* ==================== レスポンシブ ==================== */
+@media screen and (max-width: 768px) {
+    .hero, .policy-hero, .hero-pricing {padding:120px 20px 80px;}
+    .hero-title, .policy-hero .hero-title, .hero-pricing .hero-title {font-size:2.6rem;}
+    .hero-title .highlight, .policy-hero .hero-title .highlight, .hero-pricing .hero-title .highlight {font-size:3rem;}
+    .hero-subtitle, .policy-hero .hero-subtitle, .hero-pricing .hero-subtitle {font-size:1.3rem;}
+    nav a{display:block;margin:6px 0;}
+    .features{gap:18px;}
+    .features span{font-size:1.15rem;padding:16px 18px;}
+    .plans{flex-direction:column;gap:20px;}
+    .plan-card{flex:1 0 auto;padding:30px 20px;}
+    .plan-card .cta-button{font-size:1.15rem;padding:14px 0;}
+    .cta-button{width:90%;}
+}

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>料金プラン - Vector Nova Academy</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- ===================== ヘッダー ===================== -->
+    <header>
+        <div class="header-container">
+            <h1>Vector Nova Academy</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">ホーム</a>
+                <a href="{{ url_for('pricing') }}">料金プラン</a>
+                <a href="{{ url_for('policy') }}">ポリシー</a>
+                <a href="{{ url_for('business_line') }}">質問・添削</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===================== メイン ===================== -->
+    <main>
+        <!-- Heroセクション -->
+        <section class="hero-pricing">
+            <div class="hero-content">
+                <h2 class="hero-title">
+                    あなたに合った<br>
+                    <span class="highlight">料金プランを選ぼう</span>
+                </h2>
+                <p class="hero-subtitle">匿名で安心して質問・添削ができるプランを提供しています。</p>
+            </div>
+        </section>
+
+        <!-- プランカードセクション -->
+<section class="plans" style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin:60px 0;">
+
+   <!-- 無料プラン（シルバー系） -->
+<div class="plan-card" style="
+    flex:0 0 320px;
+    background: linear-gradient(145deg, #f8f8f8 0%, #e0e0e0 40%, #c0c0c0 60%, #f0f0f0 100%);
+    color:#1e1e1e;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.25), inset 0 2px 12px rgba(255,255,255,0.4);
+    border-radius: 20px;
+    position: relative;
+    overflow: visible;
+    margin-bottom: 60px;
+">
+    <h3 style="color:#333; position:relative; z-index:2;">無料プラン</h3>
+    <p style="color:#333; position:relative; z-index:2;">質問・添削が可能</p>
+    <p class="price" style="color:#555; position:relative; z-index:2;">1日3件まで</p>
+
+    <!-- ボタン＋吹き出し -->
+    <div style="position: relative; text-align:center; margin-top:25px; display:inline-block; width:100%;">
+        <!-- 吹き出し -->
+        <div class="free-badge">👇 ここをクリック！</div>
+
+        <!-- ボタン -->
+        <a href="{{ url_for('business_line') }}">
+            <button class="btn-floating-silver">無料プランで質問する</button>
+        </a>
+    </div>
+
+    <!-- 光沢ハイライト -->
+    <div style="
+        position:absolute;
+        top:0; left:-50%;
+        width:200%;
+        height:100%;
+        background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+        transform: skewX(-25deg);
+        animation: shine 2s infinite;
+        pointer-events: none;
+        z-index:1;
+    "></div>
+</div>
+
+<!-- 有料プラン（ゴールド系） -->
+<div class="plan-card" style="
+    flex:0 0 320px;
+    background: linear-gradient(145deg, #fff8e1 0%, #ffec3d 40%, #fdd835 60%, #fff9c4 100%);
+    color:#1e1e1e;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.3), inset 0 2px 12px rgba(255,255,255,0.35);
+    border-radius: 20px;
+    position: relative;
+    overflow: visible;
+    margin-bottom: 60px;
+">
+    <h3 style="color:#1e1e1e; position:relative; z-index:2;">有料プラン</h3>
+    <p style="color:#1e1e1e; position:relative; z-index:2;">無制限に質問・添削可能</p>
+    <p class="price" style="color:#1e1e1e; position:relative; z-index:2;">月額 1,500円</p>
+
+    <!-- ボタン＋吹き出し -->
+    <div style="position: relative; text-align:center; margin-top:25px; display:inline-block; width:100%;">
+        <!-- 吹き出し -->
+        <div class="click-badge">👇 ここをクリック！</div>
+
+        <!-- ボタン -->
+        <a href="{{ url_for('business_line') }}">
+            <button class="btn-floating-gold">有料プランで質問する</button>
+        </a>
+    </div>
+
+    <!-- 光沢ハイライト -->
+    <div style="
+        position:absolute;
+        top:0; left:-50%;
+        width:200%;
+        height:100%;
+        background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+        transform: skewX(-25deg);
+        animation: shine 2s infinite;
+        pointer-events: none;
+        z-index:1;
+    "></div>
+</div>
+
+<style>
+/* 光沢アニメーション */
+@keyframes shine {
+    0% { transform: translateX(-100%) skewX(-25deg); }
+    100% { transform: translateX(100%) skewX(-25deg); }
+}
+
+/* ボタン浮かび上がり */
+.btn-floating-silver,
+.btn-floating-gold {
+    width: 100%;
+    padding: 18px 0;
+    font-size: 1.25rem;
+    border-radius: 50px;
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-floating-silver {
+    background: linear-gradient(135deg, #e0e0e0 0%, #cfcfcf 50%, #dcdcdc 100%);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.25), inset 0 2px 10px rgba(255,255,255,0.45);
+}
+
+.btn-floating-gold {
+    background: linear-gradient(135deg, #ffeb3b 0%, #fdd835 50%, #ffea00 100%);
+    color: #1e1e1e;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.3), inset 0 2px 12px rgba(255,255,255,0.45);
+}
+
+/* ホバーで浮き上がる */
+.btn-floating-silver:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.35), inset 0 2px 12px rgba(255,255,255,0.45);
+}
+.btn-floating-gold:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.35), inset 0 2px 12px rgba(255,255,255,0.45);
+}
+
+/* ポップ吹き出し */
+.click-badge,
+.free-badge {
+    position: absolute;
+    top: -36px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    white-space: nowrap;
+    z-index: 10;
+    animation: float-badge 1.5s ease-in-out infinite;
+}
+
+/* 吹き出し色 */
+.free-badge {
+    background: linear-gradient(135deg, #b0b0b0, #8c8c8c);
+}
+.click-badge {
+    background: linear-gradient(135deg, #ffea00, #fdd835);
+}
+
+/* 吹き出し三角矢印 */
+.click-badge::after,
+.free-badge::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+}
+
+.free-badge::after {
+    border-color: #8c8c8c transparent transparent transparent;
+}
+.click-badge::after {
+    border-color: #fdd835 transparent transparent transparent;
+}
+
+/* 浮遊アニメーション */
+@keyframes float-badge {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-6px); }
+}
+</style>
+
+
+
+</section>
+
+
+    </main>
+
+    <!-- ===================== フッター ===================== -->
+    <footer>
+        <p>&copy; 2025 Vector Nova Academy</p>
+    </footer>
+</body>
+</html>

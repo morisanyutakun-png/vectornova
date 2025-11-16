@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポリシー - Vector Nova Academy</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- ===================== ヘッダー ===================== -->
+    <header>
+        <div class="header-container">
+            <h1>Vector Nova Academy</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">ホーム</a>
+                <a href="{{ url_for('pricing') }}">料金プラン</a>
+                <a href="{{ url_for('policy') }}">ポリシー</a>
+                <a href="{{ url_for('business_line') }}">質問・添削</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===================== メイン ===================== -->
+    <main>
+        <!-- Heroセクション -->
+        <section class="policy-hero hero">
+            <div class="hero-content">
+                <h2 class="hero-title">
+                    <span class="highlight">利用ポリシー</span>
+                </h2>
+                <p class="hero-subtitle">
+                    Vector Nova Academyは、安全・安心に学べる匿名オンライン塾です。<br>
+                    以下のルールに沿ってご利用ください。
+                </p>
+            </div>
+        </section>
+
+        <!-- ポリシーカード -->
+        <section class="features policy-cards">
+            <span>完全匿名運用。名前や顔の公開はありません。</span>
+            <span>提出物・質問内容は運営側で記録しますが外部には公開されません。</span>
+            <span>無料プランでは対応件数に制限があります。</span>
+            <span>有料プランの導入は将来的に行います。</span>
+            <span>著作権や倫理に反する質問には対応できません。</span>
+        </section>
+
+        <!-- CTAボタン -->
+        <div class="cta-wrapper" style="text-align:center; margin:60px 0; position:relative;">
+            <a href="{{ url_for('business_line') }}" class="cta-link" style="position: relative; display: inline-block;">
+                <button class="cta-button">LINEで質問・添削依頼を送る</button>
+                <div class="click-badge">👇 ここをクリック！</div>
+            </a>
+        </div>
+    </main>
+
+    <!-- ===================== フッター ===================== -->
+    <footer>
+        <p>&copy; 2025 Vector Nova Academy</p>
+    </footer>
+</body>
+</html>
