@@ -13,17 +13,18 @@
 </head>
 <body>
     <!-- ===================== ヘッダー ===================== -->
-    <header>
-        <div class="header-container">
-            <h1>Vector Nova Academy</h1>
-            <nav>
-                <a href="{{ url_for('index') }}">ホーム</a>
-                <a href="{{ url_for('pricing') }}">料金プラン</a>
-                <a href="{{ url_for('policy') }}">ポリシー</a>
-                <a href="{{ url_for('business_line') }}">質問・添削</a>
-            </nav>
-        </div>
-    </header>
+<header>
+    <div class="header-container">
+        <h1>Vector Nova Academy</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">ホーム</a>
+            <a href="{{ url_for('pricing') }}">料金プラン</a>
+            <a href="{{ url_for('policy') }}" class="active">ポリシー</a>
+            <a href="{{ url_for('qanda') }}">質問・添削</a>
+        </nav>
+    </div>
+</header>
+
 
     <!-- ===================== メイン ===================== -->
     <main>
@@ -42,18 +43,20 @@
 
         <!-- ポリシーカード -->
         <section class="features policy-cards">
-            <span>完全匿名運用。名前や顔の公開はありません。</span>
-            <span>提出物・質問内容は運営側で記録しますが外部には公開されません。</span>
-            <span>無料プランでは対応件数に制限があります。</span>
-            <span>有料プランの導入は将来的に行います。</span>
-            <span>著作権や倫理に反する質問には対応できません。</span>
+            <span>当塾は理系名大生チームによる完全匿名運用です。名前や顔の公開はありません。</span>
+            <span>提出物・質問内容は運営側で記録しますが、外部には一切公開されません。</span>
+            <span>無料プランでは対応件数に制限があります。無制限の添削・回答は有料プランにて提供します。</span>
+            <span>有料プランでは無制限の添削・回答を受け付けます。</span>
+            <span>回答は原則24時間以内に行います。無料プランは対応に時間がかかる場合があります。</span>
+            <span>著作権や倫理に反する内容の質問には対応できません。</span>
+            <span>誹謗中傷や違法行為、個人情報を含む質問は禁止です。</span>
         </section>
 
         <!-- CTAボタン -->
         <div class="cta-wrapper" style="text-align:center; margin:60px 0; position:relative;">
-            <a href="{{ url_for('business_line') }}" class="cta-link" style="position: relative; display: inline-block;">
+            <a href="{{ url_for('qanda') }}" class="cta-link" style="position: relative; display: inline-block;">
                 <button class="cta-button">LINEで質問・添削依頼を送る</button>
-                <div class="click-badge">👇 ここをクリック！</div>
+                <div class="click-badge">無料！</div>
             </a>
         </div>
     </main>

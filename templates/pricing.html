@@ -13,17 +13,18 @@
 </head>
 <body>
     <!-- ===================== ヘッダー ===================== -->
-    <header>
-        <div class="header-container">
-            <h1>Vector Nova Academy</h1>
-            <nav>
-                <a href="{{ url_for('index') }}">ホーム</a>
-                <a href="{{ url_for('pricing') }}">料金プラン</a>
-                <a href="{{ url_for('policy') }}">ポリシー</a>
-                <a href="{{ url_for('business_line') }}">質問・添削</a>
-            </nav>
-        </div>
-    </header>
+<header>
+    <div class="header-container">
+        <h1>Vector Nova Academy</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">ホーム</a>
+            <a href="{{ url_for('pricing') }}" class="active">料金プラン</a>
+            <a href="{{ url_for('policy') }}">ポリシー</a>
+            <a href="{{ url_for('qanda') }}">質問・添削</a>
+        </nav>
+    </div>
+</header>
+
 
     <!-- ===================== メイン ===================== -->
     <main>

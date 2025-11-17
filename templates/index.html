@@ -13,17 +13,19 @@
 </head>
 <body>
     <!-- ===================== ヘッダー ===================== -->
-    <header>
-        <div class="header-container">
-            <h1>Vector Nova Academy</h1>
-            <nav>
-                <a href="{{ url_for('index') }}">ホーム</a>
-                <a href="{{ url_for('pricing') }}">料金プラン</a>
-                <a href="{{ url_for('policy') }}">ポリシー</a>
-                <a href="{{ url_for('business_line') }}">質問・添削</a>
-            </nav>
-        </div>
-    </header>
+<header>
+    <div class="header-container">
+        <h1>Vector Nova Academy</h1>
+        <nav>
+            <a href="{{ url_for('index') }}" class="active">ホーム</a>
+            <a href="{{ url_for('pricing') }}">料金プラン</a>
+            <a href="{{ url_for('policy') }}">ポリシー</a>
+            <a href="{{ url_for('qanda') }}">質問・添削</a>
+
+        </nav>
+    </div>
+</header>
+
 
     <!-- ===================== メイン ===================== -->
 <main>
@@ -130,7 +132,7 @@
     <!-- 強調バッジ -->
     <div class="free-badge">無料！</div>
 
-    <a href="{{ url_for('business_line') }}" class="cta-link">
+    <a href="{{ url_for('qanda') }}" class="cta-link">
         <button class="cta-button">LINEで質問・添削依頼を送る</button>
     </a>
 </div>
