@@ -11,7 +11,7 @@
         /* Card共通のスタイル調整 */
         .qanda-card {
             font-family: 'Roboto', sans-serif;
-            border: 1px solid rgba(0, 0, 0, 0.05); /* 境界線をうっすら追加 */
+            border: 1px solid rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .qanda-card:hover {
@@ -21,7 +21,7 @@
         .qanda-card h3 {
             font-family: 'Montserrat', sans-serif !important;
             font-weight: 700;
-            color: #b91c1c; /* メインカラーを使用 */
+            color: #b91c1c;
             padding-bottom: 8px;
             border-bottom: 2px solid rgba(185, 28, 28, 0.2);
             margin-bottom: 15px !important;
@@ -29,28 +29,46 @@
 
         /* 匿名カードの強調 */
         .qanda-card.anonymous-card {
-            background: #fff8dc; /* 薄い黄色 */
-            border-left: 8px solid #faff5c; /* 左側に目立つライン */
+            background: #fff8dc;
+            border-left: 8px solid #faff5c;
+        }
+        /* 匿名カード内のキーワード強調 */
+        .anonymous-card .key-emphasis {
+            color: #b91c1c; /* 赤色で強調 */
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
         /* プランカードの強調 */
         .qanda-card.plan-info-card {
-            background: #e0f7fa; /* 薄い青 */
-            border-left: 8px solid #00bcd4; /* 左側に目立つライン */
+            background: #e0f7fa;
+            border-left: 8px solid #00bcd4;
         }
         .plan-info-card li::marker {
             color: #b91c1c;
             font-size: 1.1rem;
         }
+        /* プラン名強調 */
+        .plan-name {
+            color: #b91c1c;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        /* 無制限強調 */
+        .unlimited-highlight {
+            color: #00bcd4; /* 青で強調 */
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
 
         /* 利用の流れ（タイムライン）の強化 */
         .qanda-card.timeline-card {
-            background: #f0f4c3; /* 薄い緑 */
+            background: #f0f4c3;
             border-left: 8px solid #63f1a5;
         }
         .timeline-step {
             position: relative;
-            padding-left: 30px; /* アイコン分のスペース */
+            padding-left: 30px;
         }
         /* タイムラインの縦線 */
         .timeline-step:not(:last-child)::before {
@@ -60,7 +78,7 @@
             top: 40px;
             bottom: -20px;
             width: 2px;
-            background-color: #9ccc65; /* 緑色の中間色 */
+            background-color: #9ccc65;
         }
         .timeline-step > div:first-child {
             position: absolute;
@@ -75,13 +93,25 @@
             justify-content: center;
             align-items: center;
             font-size: 0.9rem !important;
-            box-shadow: 0 0 0 4px #f0f4c3; /* 背景色と同じ色のリング */
+            box-shadow: 0 0 0 4px #f0f4c3;
             font-weight: bold;
+        }
+        /* ステップ内の強調キーワード */
+        .step-keyword {
+            color: #1b5e20; /* 濃い緑色 */
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        /* 最終ステップのフィードバック強調 */
+        .feedback-highlight {
+            color: #b91c1c;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
         /* FAQの強化 */
         .qanda-card.faq-card {
-            background: #ffe4e1; /* 薄い赤 */
+            background: #ffe4e1;
             border-left: 8px solid #f87171;
         }
         .faq-item {
@@ -159,8 +189,8 @@
         <div class="qanda-card anonymous-card" style="padding:25px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
             <h3 style="font-size:1.6rem;">🔒 安心の完全匿名運用</h3>
             <p style="font-size:1.05rem;">
-                本サービスは**LINEアカウントとGoogleアカウントのみ**でご利用いただけます。
-                質問や提出物はGoogle Formsで受け付け、**お名前や顔が公開されることは一切ありません**。
+                本サービスは<span class="key-emphasis">LINEアカウントとGoogleアカウントのみ</span>でご利用いただけます。
+                質問や提出物はGoogle Formsで受け付け、<span class="key-emphasis">お名前や顔が公開されることは一切ありません</span>。
                 誰にも知られずに、安心して学習の悩みを相談し、添削サービスをご利用いただけます。
             </p>
         </div>
@@ -168,8 +198,8 @@
         <div class="qanda-card plan-info-card" style="padding:25px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
             <h3 style="font-size:1.6rem;">✅ 無料プランと有料プランのご案内</h3>
             <ul style="margin-left:25px; list-style-type: disc; font-size:1.05rem;">
-                <li>**無料プラン：** 1か月あたりの質問・添削件数に制限がございます。まずは試してみたい方に最適です。</li>
-                <li>**有料プラン：** 質問・添削が**無制限**で可能になります。さらに、有料プランの質問は**優先的に対応**され、回答スピードが向上します。</li>
+                <li><span class="plan-name">無料プラン：</span> 1か月あたりの質問・添削件数に制限がございます。まずは試してみたい方に最適です。</li>
+                <li><span class="plan-name">有料プラン：</span> 質問・添削が<span class="unlimited-highlight">無制限</span>で可能になります。さらに、有料プランの質問は<span class="unlimited-highlight">優先的に対応</span>され、回答スピードが向上します。</li>
                 <li>（注意）どちらのプランも学習の参考として提供されます。成果には個人差があることをご了承ください。</li>
             </ul>
         </div>
@@ -182,7 +212,7 @@
                     <div style="font-size:1.5rem;">1</div>
                     <div>
                         <strong style="color:#b91c1c;">【STEP 1】LINEから質問フォームへ！</strong><br>
-                        まずは**公式LINEに友だち追加**をお願いします。追加後、トーク画面下の**リッチメニューの「添削依頼」ボタン**をタップして表示されるURLにアクセス！その後、**添削フォームを開く**ボタンを押すとすぐに質問フォーム（Google Forms）へ移動できます。教科を選び、添削希望のファイル（写真など）をアップロードして送信してください。
+                        まずは<span class="step-keyword">公式LINEに友だち追加</span>をお願いします。追加後、トーク画面下の<span class="step-keyword">リッチメニューの「添削依頼」ボタン</span>をタップして表示されるURLにアクセス！その後、**添削フォームを開く**ボタンを押すとすぐに質問フォーム（Google Forms）へ移動できます。教科を選び、添削希望のファイル（写真など）をアップロードして送信してください。
                     </div>
                 </div>
 
@@ -190,7 +220,7 @@
                     <div style="font-size:1.5rem;">2</div>
                     <div>
                         <strong style="color:#b91c1c;">【STEP 2】名大生チームが丁寧に添削</strong><br>
-                        送信された内容を、名古屋大学の学生チームが責任を持って確認し、添削を行います。提出された問題や質問の意図を正確に読み取り、最適なフィードバックを準備します。
+                        送信された内容を、<span class="step-keyword">名古屋大学の学生チーム</span>が責任を持って確認し、添削を行います。提出された問題や質問の意図を正確に読み取り、最適なフィードバックを準備します。
                     </div>
                 </div>
 
@@ -198,7 +228,7 @@
                     <div style="font-size:1.5rem;">3</div>
                     <div>
                         <strong style="color:#b91c1c;">【STEP 3】回答受け取り＆学習に活かす！</strong><br>
-                        添削済みの回答が届きます。担当講師の名前が明示され、**類題のヒントや今後の学習への具体的なアドバイス**など、あなただけに向けたフィードバックが得られます。次の学習にぜひ役立ててください！
+                        添削済みの回答が届きます。担当講師の名前が明示され、<span class="feedback-highlight">類題のヒントや今後の学習への具体的なアドバイス</span>など、あなただけに向けたフィードバックが得られます。次の学習にぜひ役立ててください！
                     </div>
                 </div>
 
