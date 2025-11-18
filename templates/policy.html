@@ -58,9 +58,22 @@
     </section>
 
     <!-- CTAボタン -->
-                <div class="cta-wrapper">
+                 <div class="cta-wrapper" style="
+                    margin-top:20px; 
+                    margin-bottom: 50px; 
+                    max-width: 450px; 
+                    margin-left: auto; 
+                    margin-right: auto;
+                ">
                     <div class="free-badge">無料！</div>
-                    <a href="{{ url_for('business_line') }}" class="cta-button">LINEで質問・添削依頼を送る</a>
+                    <a href="{{ url_for('business_line') }}" class="cta-button" style="
+                        width: 100%; 
+                        text-decoration: none; 
+                        display: flex; 
+                        justify-content: center;
+                    ">
+                        🚀 LINEで質問・添削依頼を送る
+                    </a>
                 </div>
             </div>
         </section>
