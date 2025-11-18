@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>質問・添削 - Vector Nova Academy</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- ===================== ヘッダー ===================== -->
+    <header>
+        <div class="header-container">
+            <h1>Vector Nova Academy</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">ホーム</a>
+                <a href="{{ url_for('pricing') }}">料金プラン</a>
+                <a href="{{ url_for('policy') }}">ポリシー</a>
+                <a href="{{ url_for('qanda') }}" class="active">質問・添削</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===================== メイン ===================== -->
+    <main style="padding: 50px 20px; max-width: 1000px; margin: 0 auto;">
+    <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; text-align:center; margin-bottom:30px;">
+        質問・添削サービスについて
+    </h2>
+
+    <div class="qanda-section" style="display:flex; flex-direction:column; gap:24px;">
+
+        <!-- 完全匿名 -->
+<div class="qanda-card" style="padding:20px; border-radius:12px; background:#fff8dc; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
+    <h3 style="font-family:'Poppins', sans-serif; font-size:1.5rem; margin-bottom:12px;">完全匿名での運用</h3>
+    <p>
+        本サービスはLINEアカウントの情報のみでご利用いただけます。
+        質問や提出物は匿名で受け付け、名前や顔は公開されません。
+        安心してご利用いただけます。
+    </p>
+</div>
+
+        <!-- プランの説明 -->
+        <div class="qanda-card" style="padding:20px; border-radius:12px; background:#e0f7fa; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
+            <h3 style="font-family:'Poppins', sans-serif; font-size:1.5rem; margin-bottom:12px;">無料プランと有料プラン</h3>
+            <ul style="margin-left:20px; list-style-type: disc;">
+                <li>無料プラン：1か月あたりの質問・添削件数に制限があります。</li>
+                <li>有料プラン：無制限で質問・添削が可能。優先対応やスピードも向上。</li>
+                <li>どちらのプランも学習の参考として提供されます。成果には個人差があります。</li>
+            </ul>
+        </div>
+
+        <!-- 利用の流れ -->
+<div class="qanda-card" style="padding:20px; border-radius:12px; background:#f0f4c3; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
+    <h3 style="font-family:'Poppins', sans-serif; font-size:1.5rem; margin-bottom:12px;">利用の流れ</h3>
+    <div class="timeline" style="display:flex; flex-direction:column; gap:20px;">
+
+        <div class="timeline-step" style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="font-size:1.5rem;">📩</div>
+            <div>
+                <strong>質問送信：</strong><br>
+                LINEアカウントまたはフォームから送信。教科・単元・添削希望の文章を添えてください。
+            </div>
+        </div>
+
+        <div class="timeline-step" style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="font-size:1.5rem;">✏️</div>
+            <div>
+                <strong>添削・確認：</strong><br>
+                名大生チームが内容を確認し、丁寧に添削します。
+            </div>
+        </div>
+
+        <div class="timeline-step" style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="font-size:1.5rem;">✅</div>
+            <div>
+                <strong>回答受け取り・学習活用：</strong><br>
+                回答を受け取り、学習に活用してください。
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- FAQ（アコーディオン風サンプル） -->
+<div class="qanda-card" style="padding:20px; border-radius:12px; background:#ffe4e1; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
+    <h3 style="font-family:'Poppins', sans-serif; font-size:1.5rem; margin-bottom:12px;">よくある質問</h3>
+    <div class="faq-item">
+        <button class="faq-question">匿名は本当に保証されますか？</button>
+        <div class="faq-answer" style="display:none; padding:8px 0;">はい、名前や顔は運営にも公開されません。</div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">回答はどれくらいで届きますか？</button>
+        <div class="faq-answer" style="display:none; padding:8px 0;">プランに応じて数時間〜数日でお届けします。</div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">著作権や倫理に反する質問はできますか？</button>
+        <div class="faq-answer" style="display:none; padding:8px 0;">できません。送信はご遠慮ください。</div>
+    </div>
+</div>
+
+<!-- 質問テンプレート -->
+<div class="qanda-card" style="padding:20px; border-radius:12px; background:#d1c4e9; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
+    <h3 style="font-family:'Poppins', sans-serif; font-size:1.5rem; margin-bottom:12px;">質問テンプレート例</h3>
+    <p>下記のフォーマットをコピーして送ると、添削がスムーズです：</p>
+    <pre style="background:#fff; padding:10px; border-radius:8px; overflow-x:auto;">
+【教科・単元】：
+【質問内容】：
+【添削希望ポイント】：
+    </pre>
+</div>
+
+
+    <!-- CTAボタン -->
+        <div class="cta-wrapper" style="text-align:center; margin:60px 0; position:relative;">
+            <a href="{{ url_for('qanda') }}" class="cta-link" style="position: relative; display: inline-block;">
+                <button class="cta-button">LINEで質問・添削依頼を送る</button>
+                <div class="click-badge">無料！</div>
+            </a>
+        </div>
+    
+</main>
+
+
+    <!-- ===================== フッター ===================== -->
+    <footer style="background:#b91c1c; color:#fff; text-align:center; padding:20px 0; margin-top:50px;">
+        <p>&copy; 2025 Vector Nova Academy</p>
+    </footer>
+</body>
+</html>
