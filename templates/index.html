@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vector Nova Academy</title>
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- ===================== ヘッダー ===================== -->
     <header>
         <div class="header-container">
             <h1>Vector Nova Academy</h1>
@@ -25,15 +22,12 @@
         </div>
     </header>
 
-    <!-- ===================== メイン ===================== -->
     <main>
 
-        <!-- ドカンと目立つ画像 -->
         <section class="hero-image">
             <img src="{{ url_for('static', filename='images/image2.PNG') }}" alt="メイン画像">
         </section>
 
-        <!-- Heroセクション -->
         <section class="hero">
             <div class="hero-content">
                 <h2 class="hero-title">
@@ -42,26 +36,34 @@
                 </h2>
                 <p class="hero-subtitle">Vector Nova Academyは、誰でも質問・添削依頼ができるオンライン塾です。</p>
 
-                <!-- 特徴カード -->
                 <div class="features">
                     <span>LINEとGoogle Formsで無料の質問・添削が可能</span>
                     <span>名大生による安心・高品質サポート</span>
                     <span>お手頃な有料プランで無制限開放</span>
                 </div>
 
-                <!-- CTAボタン -->
-                <div class="cta-wrapper" style="margin-top:20px; margin-bottom: 50px;">
-            <div class="free-badge">無料！</div>
-            <a href="{{ url_for('business_line') }}" class="cta-button" style="text-decoration: none; display: flex; justify-content: center;">
-                🚀 LINEで質問・添削依頼を送る
-            </a>
-        </div>
+                <div class="cta-wrapper" style="
+                    margin-top:20px; 
+                    margin-bottom: 50px; 
+                    max-width: 450px; 
+                    margin-left: auto; 
+                    margin-right: auto;
+                ">
+                    <div class="free-badge">無料！</div>
+                    <a href="{{ url_for('business_line') }}" class="cta-button" style="
+                        width: 100%; 
+                        text-decoration: none; 
+                        display: flex; 
+                        justify-content: center;
+                    ">
+                        🚀 LINEで質問・添削依頼を送る
+                    </a>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <!-- ===================== フッター ===================== -->
     <footer>
         <p>&copy; 2025 Vector Nova Academy</p>
     </footer>
