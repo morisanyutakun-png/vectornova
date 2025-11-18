@@ -28,19 +28,9 @@
     <!-- ===================== メイン ===================== -->
     <main>
 
-        <!-- 上部画像セクション -->
-        <section class="top-images-grid">
-            <div class="image-card">
-                <img src="{{ url_for('static', filename='images/image1.PNG') }}" alt="Image 1">
-            </div>
-
-            <div class="image-card" style="animation-delay:0.2s;">
-                <img src="{{ url_for('static', filename='images/image2.PNG') }}" alt="Image 2">
-            </div>
-
-            <div class="image-card" style="animation-delay:0.4s;">
-                <img src="{{ url_for('static', filename='images/image3.PNG') }}" alt="Image 3">
-            </div>
+        <!-- ドカンと目立つ画像 -->
+        <section class="hero-image">
+            <img src="{{ url_for('static', filename='images/image2.PNG') }}" alt="メイン画像">
         </section>
 
         <!-- Heroセクション -->
