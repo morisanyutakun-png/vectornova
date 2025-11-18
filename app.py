@@ -27,7 +27,7 @@ def qanda():
 # ビジネスラインへ飛ぶリンク
 @app.route("/business-line")
 def business_line():
-    return redirect("https://lin.ee/RR8PCTI")  # 実際のURLに置き換え
+    return redirect("https://lin.ee/IsGy9Xc")  # 実際のURLに置き換え
 
 
 @app.route("/policy-for-line")
