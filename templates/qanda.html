@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>質問・添削 - Vector Nova Academy</title>
-
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
 <style>
+/* ---------------- 基本設定 ---------------- */
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #fdfdfd;
@@ -52,158 +51,156 @@ h2 span {
     display: inline-block;
     transform: rotate(-1.5deg);
 }
-
 .qanda-section {
     display:flex;
     flex-direction:column;
     gap:50px;
 }
 
+/* ---------------- フェードインアニメーション ---------------- */
+.fade-in {
+    opacity:0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s forwards;
+}
+@keyframes fadeInUp {
+    to {
+        opacity:1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------------- カード共通 ---------------- */
 .qanda-card {
-    border:1px solid rgba(0,0,0,0.05);
-    border-radius:15px;
-    padding:25px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    border-radius:20px;
+    overflow:hidden;
+    min-height:400px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-size: cover;
+    background-position: center;
     display:flex;
     flex-direction: column;
-    gap:20px;
+    justify-content: flex-end;
 }
 .qanda-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    box-shadow:0 30px 70px rgba(0,0,0,0.25);
+}
+.qanda-card .card-content {
+    position: relative;
+    background: rgba(255,255,255,0.88);
+    padding: 25px;
+    border-radius: 15px;
+    width: 100%;
 }
 .qanda-card h3 {
+    margin:0 0 15px 0;
     font-family:'Montserrat',sans-serif;
     font-weight:700;
     color:#b91c1c;
-    padding-bottom:8px;
-    border-bottom:2px solid rgba(185,28,28,0.2);
-    margin-bottom:15px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-.qanda-card img.card-icon {
-    width:40px;
-    height:40px;
+    font-size:1.4rem;
 }
 
-/* 匿名カード */
+/* ---------------- 匿名カード ---------------- */
 .anonymous-card {
-    background:#fff8dc;
-    border-left:8px solid #faff5c;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-.anonymous-card .key-emphasis {
-    color:#b91c1c;
-    font-weight:700;
-    font-size:1.1rem;
-}
-.anonymous-card img {
-    width:250px;
-    max-width:100%;
-    border-radius:10px;
-    margin-top:15px;
-    flex-shrink:0;
+    background-image: url('{{ url_for('static', filename='images/anonymous_card.png') }}');
 }
 
-/* プランカード */
+/* ---------------- プランカード ---------------- */
 .plan-info-card {
-    background:#e0f7fa;
-    border-left:8px solid #00bcd4;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    background-image: url('{{ url_for('static', filename='images/plan_card.png') }}');
 }
-.plan-info-card li::marker {
-    color:#b91c1c;
-    font-size:1.1rem;
+.plan-info-card ul {
+    padding-left:20px;
+    margin:0;
+}
+.plan-info-card li {
+    margin-bottom:12px;
+    line-height:1.6;
 }
 .plan-name {
     color:#b91c1c;
     font-weight:700;
-    font-size:1.1rem;
-}
-.plan-info-card img {
-    width:250px;
-    max-width:100%;
-    border-radius:10px;
-    margin-left:15px;
-    margin-top:15px;
-    flex-shrink:0;
 }
 
-/* CTA */
-.cta-wrapper {
-    margin-top:20px;
-    margin-bottom:50px;
-    text-align:center;
+/* ---------------- タイムラインカード ---------------- */
+.timeline-card {
+    background-image: url('{{ url_for('static', filename='images/timeline_bg.png') }}');
+    padding: 25px 20px;
 }
-.cta-button {
-    max-width:450px;
-    background:#00c853; /* 緑 */
-    color:#fff;
-    font-weight:700;
-    padding:12px 20px;
-    border-radius:10px;
-    display:inline-flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    text-decoration:none;
-    position:relative;
+.timeline-card h3 {
+    margin-bottom:25px;
+    text-align:center;
+    background: rgba(255,255,255,0.9);
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 12px;
+}
+.timeline {
+    display:flex;
+    gap:20px;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
-.cta-button .bubble {
-    background:#b91c1c; /* 吹き出しだけ赤 */
-    color:#fff;
-    font-weight:700;
-    padding:5px 10px;
-    border-radius:12px;
-    margin-right:10px;
+.timeline-step {
     display:flex;
-    align-items:center;
-    justify-content:center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex:1;
+    min-width:250px;
 }
-.free-badge {
-    display:inline-block;
-    background:#00bcd4;
-    color:#fff;
-    font-weight:700;
-    padding:5px 10px;
-    border-radius:10px;
+.timeline-step .step-number {
+    font-size:1.8rem;
+    font-weight:bold;
+    color:#b91c1c;
+    margin-bottom:12px;
+}
+.timeline-step img {
+    width:140px;
+    border-radius:15px;
     margin-bottom:10px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+.timeline-step .step-text {
+    background: rgba(255,255,255,0.92);
+    padding:12px;
+    border-radius:12px;
+    line-height:1.6;
+    font-size:0.95rem;
 }
 
-/* FAQカード */
+/* ---------------- FAQカード ---------------- */
 .faq-card {
-    background:#ffe4e1;
-    border-left:8px solid #f87171;
+    background-color: #fff;
+    padding:40px 20px;
+    border-radius:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.2);
+}
+.faq-card .card-content {
+    background: rgba(255,255,255,0.95);
+    padding:25px;
+    border-radius:15px;
 }
 .faq-item {
-    margin-bottom:10px;
-    border-bottom:1px dashed rgba(185,28,28,0.2);
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
 }
 .faq-question {
     width:100%;
     text-align:left;
-    padding:12px 10px;
+    padding:14px 15px 14px 50px;
     background:none;
     border:none;
     font-family:'Montserrat',sans-serif;
-    font-size:1rem;
+    font-size:1.05rem;
     font-weight:600;
     color:#1e1e1e;
     cursor:pointer;
     outline:none;
-    display:flex;
-    align-items:center;
-    gap:5px;
     position:relative;
     transition: background-color 0.2s;
 }
@@ -213,31 +210,112 @@ h2 span {
 .faq-question::after {
     content:'▼';
     position:absolute;
-    right:10px;
+    right:15px;
     font-size:0.8rem;
     color:#b91c1c;
     transition: transform 0.3s;
 }
 .faq-answer {
     display:none;
-    background-color: rgba(255,255,255,0.7);
-    padding:10px 15px;
-    border-radius:8px;
-    margin-top:5px;
+    padding:12px 15px;
     font-size:0.95rem;
     line-height:1.6;
+    border-left:3px solid #b91c1c;
+    margin-top:5px;
+    background: rgba(255,255,255,0.88);
+    border-radius:8px;
 }
 
-/* メディアクエリでスマホ対応 */
+/* FAQアイコン（サイズ大きめに調整） */
+.faq-question.clock::before,
+.faq-question.edit::before,
+.faq-question.faq::before,
+.faq-question.privacy::before,
+.faq-question.no::before {
+    content: '';
+    position: absolute;
+    left:15px;
+    top:50%;
+    transform: translateY(-50%);
+    width:32px;   /* アイコン幅を大きく */
+    height:32px;  /* アイコン高さを大きく */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* 個別アイコン画像指定 */
+.faq-question.clock::before {
+    background-image: url('{{ url_for('static', filename='images/clock-icon.png') }}');
+}
+.faq-question.edit::before {
+    background-image: url('{{ url_for('static', filename='images/edit-icon.png') }}');
+}
+.faq-question.faq::before {
+    background-image: url('{{ url_for('static', filename='images/faq.png') }}');
+}
+.faq-question.privacy::before {
+    background-image: url('{{ url_for('static', filename='images/privacy.png') }}');
+}
+.faq-question.no::before {
+    background-image: url('{{ url_for('static', filename='images/no-icon.png') }}');
+}
+
+/* ボタンの左パディングもアイコンサイズに合わせて調整 */
+.faq-question {
+    padding-left: 55px; /* 元は50px */
+}
+
+/* ---------------- CTA ---------------- */
+.cta-wrapper {
+    margin-top:25px;
+    margin-bottom:60px;
+    text-align:center;
+}
+.cta-button {
+    max-width:450px;
+    background:#b91c1c;
+    color:#fff;
+    font-weight:700;
+    padding:14px 22px;
+    border-radius:10px;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    transition: background 0.3s, transform 0.3s;
+}
+.cta-button:hover {
+    background:#9a1616;
+    transform: translateY(-2px);
+}
+.free-badge {
+    display:inline-block;
+    background:#00bcd4;
+    color:#fff;
+    font-weight:700;
+    padding:6px 12px;
+    border-radius:10px;
+    margin-bottom:12px;
+}
+
+/* ---------------- メディアクエリ ---------------- */
 @media (max-width:768px){
-    .anonymous-card, .plan-info-card {
+    .qanda-card {
         flex-direction: column;
         align-items: center;
+        height:auto;
     }
-    .anonymous-card img, .plan-info-card img {
-        margin-top:15px;
+    .timeline {
+        flex-direction: column;
+        gap:30px;
+        align-items:center;
+    }
+    .timeline-step img {
+        width:160px;
     }
 }
+
 footer {
     background:#b91c1c;
     color:#fff;
@@ -266,39 +344,87 @@ footer {
 <div class="qanda-section">
 
     <!-- 匿名カード -->
-    <div class="qanda-card anonymous-card">
-        <div>
-            <h3><img class="card-icon" src="static/images/anonymous.png" alt="匿名">🔒 安心の完全匿名運用</h3>
-            <p>
-                本サービスは<br>
-                <span class="key-emphasis">LINEアカウントとGoogleアカウントのみ</span>でご利用いただけます。<br>
-                質問や提出物は<span class="key-emphasis">Google Forms</span>で受け付け、<br>
-                <span class="key-emphasis">お名前や顔が公開されることは一切ありません</span>。<br>
-                誰にも知られずに、安心して学習の悩みを相談し、添削サービスをご利用いただけます。
-            </p>
+    <div class="qanda-card anonymous-card fade-in">
+        <div class="card-content">
+            <h3>🔒 安心の完全匿名運用</h3>
+            <p>LINE・Googleアカウントのみで利用可能。お名前や顔は一切公開されません。</p>
         </div>
-        <img src="static/images/anonymous_card.png" alt="匿名イメージ" loading="lazy">
     </div>
 
     <!-- プランカード -->
-    <div class="qanda-card plan-info-card">
-        <div>
-            <h3><img class="card-icon" src="static/images/plan.png" alt="プラン">✅ 無料プランと有料プランのご案内</h3>
+    <div class="qanda-card plan-info-card fade-in" style="animation-delay:0.2s;">
+        <div class="card-content">
+            <h3>✅ 無料プランと有料プランのご案内</h3>
             <ul>
-                <li><span class="plan-name">無料プラン：</span><br>1か月あたりの質問・添削件数に制限があります。まずは試してみたい方に最適です。</li>
-                <li><span class="plan-name">有料プラン：</span><br>質問・添削が<span class="key-emphasis">無制限</span>で可能。さらに<span class="key-emphasis">優先対応</span>で回答スピードも向上します。</li>
-                <li>（注意）どちらのプランも学習の参考として提供されます。成果には個人差があります。</li>
+                <li><span class="plan-name">無料プラン：</span>1か月あたりの質問・添削件数に制限があります。</li>
+                <li><span class="plan-name">有料プラン：</span>質問・添削が<span class="key-emphasis">無制限</span>で可能。さらに<span class="key-emphasis">優先対応</span>で回答スピードも向上。</li>
             </ul>
         </div>
-        <img src="static/images/plan_card.png" alt="プランイメージ" loading="lazy">
+    </div>
+
+    <!-- タイムラインカード -->
+    <div class="qanda-card timeline-card fade-in" style="animation-delay:0.4s;">
+        <h3>🚀 サービスご利用の流れ (3ステップ)</h3>
+        <div class="timeline">
+            <div class="timeline-step">
+                <div class="step-number">1</div>
+                <img src="{{ url_for('static', filename='images/step1.png') }}" alt="STEP1">
+                <div class="step-text">
+                    <strong>【STEP 1】LINEから質問フォームへ！</strong><br>
+                    公式LINEに友だち追加して、リッチメニューの「添削依頼」ボタンからフォームへアクセス！
+                </div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-number">2</div>
+                <img src="{{ url_for('static', filename='images/step2.png') }}" alt="STEP2">
+                <div class="step-text">
+                    <strong>【STEP 2】名大生チームが丁寧に添削</strong><br>
+                    名古屋大学の学生チームが提出内容を確認し、最適なフィードバックを準備します。
+                </div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-number">3</div>
+                <img src="{{ url_for('static', filename='images/step3.png') }}" alt="STEP3">
+                <div class="step-text">
+                    <strong>【STEP 3】回答受け取り＆学習に活かす！</strong><br>
+                    添削済みの回答が届き、<span class="feedback-highlight">具体的な学習アドバイス</span>が得られます。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQカード -->
+    <div class="qanda-card faq-card fade-in" style="animation-delay:0.6s;">
+        <div class="card-content">
+            <h3>💡 よくある質問 (FAQ)</h3>
+            <div class="faq-item">
+                <button class="faq-question clock">回答はどれくらいで届きますか？</button>
+                <div class="faq-answer">プランに応じて数時間〜数日でお届け。有料プランは優先対応でスピーディです。</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question edit">質問の修正やキャンセルはできますか？</button>
+                <div class="faq-answer">送信後は原則修正・キャンセル不可です。送信前に内容をご確認ください。</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question privacy">個人情報の取り扱いについて教えてください。</button>
+                <div class="faq-answer">提供情報は回答作成目的のみに使用し、厳重管理します。詳細はプライバシーポリシーをご覧ください。</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question faq">著作権や倫理に反する質問はできますか？</button>
+                <div class="faq-answer">できません。著作権侵害や公序良俗に反する質問はご遠慮ください。</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question no">その他の質問</button>
+                <div class="faq-answer">上記にない質問についてもお問い合わせください。</div>
+            </div>
+        </div>
     </div>
 
     <!-- CTA -->
-    <div class="cta-wrapper">
+    <div class="cta-wrapper fade-in" style="animation-delay:0.8s;">
         <div class="free-badge">無料！</div>
         <a href="{{ url_for('business_line') }}" class="cta-button">
-            <span class="bubble">🚀</span>
-            LINEで質問・添削依頼を送る
+            🚀 LINEで質問・添削依頼を送る
         </a>
     </div>
 
@@ -316,16 +442,8 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', () => {
             const answer = button.nextElementSibling;
             const isExpanded = answer.style.display === 'block';
-
-            document.querySelectorAll('.faq-answer').forEach(ans => {
-                ans.style.display = 'none';
-                ans.previousElementSibling.classList.remove('active');
-            });
-
-            if (!isExpanded) {
-                answer.style.display = 'block';
-                button.classList.add('active');
-            }
+            document.querySelectorAll('.faq-answer').forEach(ans => ans.style.display='none');
+            if (!isExpanded) answer.style.display='block';
         });
     });
 });
