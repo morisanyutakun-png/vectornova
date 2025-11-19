@@ -1,301 +1,383 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>質問・添削 - Vector Nova Academy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>質問・添削 - Vector Nova Academy</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <style>
-        /* Card共通のスタイル調整 */
-        .qanda-card {
-            font-family: 'Roboto', sans-serif;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .qanda-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-        .qanda-card h3 {
-            font-family: 'Montserrat', sans-serif !important;
-            font-weight: 700;
-            color: #b91c1c;
-            padding-bottom: 8px;
-            border-bottom: 2px solid rgba(185, 28, 28, 0.2);
-            margin-bottom: 15px !important;
-        }
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #fdfdfd;
+        margin:0;
+        padding:0;
+    }
+    header {
+        background:#b91c1c;
+        color:#fff;
+        padding:15px 20px;
+    }
+    header h1 {
+        margin:0;
+        font-family:'Poppins', sans-serif;
+        font-size:1.8rem;
+    }
+    nav a {
+        color:#fff;
+        text-decoration:none;
+        margin-left:20px;
+        font-weight:500;
+    }
+    nav a.active {
+        text-decoration:underline;
+    }
+    main {
+        padding: 50px 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem;
+        text-align:center;
+        margin-bottom:50px;
+        color:#1e1e1e;
+    }
+    h2 span {
+        background-color: #faff5c;
+        padding: 2px 10px;
+        border-radius: 5px;
+        display: inline-block;
+        transform: rotate(-1.5deg);
+    }
 
-        /* 匿名カードの強調 */
-        .qanda-card.anonymous-card {
-            background: #fff8dc;
-            border-left: 8px solid #faff5c;
-        }
-        /* 匿名カード内のキーワード強調 */
-        .anonymous-card .key-emphasis {
-            color: #b91c1c; /* 赤色で強調 */
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
+    .qanda-section {
+        display:flex;
+        flex-direction:column;
+        gap:40px;
+    }
 
-        /* プランカードの強調 */
-        .qanda-card.plan-info-card {
-            background: #e0f7fa;
-            border-left: 8px solid #00bcd4;
-        }
-        .plan-info-card li::marker {
-            color: #b91c1c;
-            font-size: 1.1rem;
-        }
-        /* プラン名強調 */
-        .plan-name {
-            color: #b91c1c;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        /* 無制限強調 */
-        .unlimited-highlight {
-            color: #00bcd4; /* 青で強調 */
-            font-weight: 700;
-            font-size: 1.15rem;
-        }
+    .qanda-card {
+        border:1px solid rgba(0,0,0,0.05);
+        border-radius:15px;
+        padding:25px;
+        box-shadow:0 8px 20px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .qanda-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+    .qanda-card h3 {
+        font-family:'Montserrat',sans-serif;
+        font-weight:700;
+        color:#b91c1c;
+        padding-bottom:8px;
+        border-bottom:2px solid rgba(185,28,28,0.2);
+        margin-bottom:15px;
+        display:flex;
+        align-items:center;
+        gap:10px;
+    }
+    .qanda-card img.card-icon {
+        width:40px;
+        height:40px;
+    }
 
-        /* 利用の流れ（タイムライン）の強化 */
-        .qanda-card.timeline-card {
-            background: #f0f4c3;
-            border-left: 8px solid #63f1a5;
-        }
-        .timeline-step {
-            position: relative;
-            padding-left: 30px;
-        }
-        /* タイムラインの縦線 */
-        .timeline-step:not(:last-child)::before {
-            content: '';
-            position: absolute;
-            left: 10px;
-            top: 40px;
-            bottom: -20px;
-            width: 2px;
-            background-color: #9ccc65;
-        }
-        .timeline-step > div:first-child {
-            position: absolute;
-            left: 0;
-            top: 0;
-            background-color: #b91c1c;
-            color: #fff;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.9rem !important;
-            box-shadow: 0 0 0 4px #f0f4c3;
-            font-weight: bold;
-        }
-        /* ステップ内の強調キーワード */
-        .step-keyword {
-            color: #1b5e20; /* 濃い緑色 */
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
-        /* 最終ステップのフィードバック強調 */
-        .feedback-highlight {
-            color: #b91c1c;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
+    /* 匿名カード */
+    .anonymous-card {
+        background:#fff8dc;
+        border-left:8px solid #faff5c;
+    }
+    .anonymous-card .key-emphasis {
+        color:#b91c1c;
+        font-weight:700;
+        font-size:1.1rem;
+    }
+    .anonymous-card img {
+        float:right;
+        width:100px;
+        border-radius:10px;
+    }
 
-        /* FAQの強化 */
-        .qanda-card.faq-card {
-            background: #ffe4e1;
-            border-left: 8px solid #f87171;
-        }
-        .faq-item {
-            margin-bottom: 8px;
-            border-bottom: 1px dashed rgba(185, 28, 28, 0.2);
-        }
-        .faq-question {
-            width: 100%;
-            text-align: left;
-            padding: 12px 10px;
-            background: none;
-            border: none;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #1e1e1e;
-            cursor: pointer;
-            outline: none;
-            transition: background-color 0.2s;
-            position: relative;
-        }
-        .faq-question:hover {
-            background-color: rgba(185, 28, 28, 0.05);
-        }
-        .faq-question::after {
-            content: '▼';
-            position: absolute;
-            right: 10px;
-            font-size: 0.8rem;
-            color: #b91c1c;
-            transition: transform 0.3s;
-        }
+    /* プランカード */
+    .plan-info-card {
+        background:#e0f7fa;
+        border-left:8px solid #00bcd4;
+    }
+    .plan-info-card li::marker {
+        color:#b91c1c;
+        font-size:1.1rem;
+    }
+    .plan-name {
+        color:#b91c1c;
+        font-weight:700;
+        font-size:1.1rem;
+    }
+    .plan-info-card img {
+        float:right;
+        width:120px;
+        border-radius:10px;
+        margin-left:15px;
+    }
 
-        /* FAQ回答表示時のアイコン回転 (JavaScriptが必要です) */
-        /* .faq-question.active::after {
-            transform: rotate(180deg);
-        } */
-        .faq-answer {
-            background-color: rgba(255, 255, 255, 0.7);
-            padding: 10px 15px !important;
-            border-radius: 8px;
-            margin-top: 5px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
+    /* タイムラインカード */
+    .timeline-card {
+        background:#f0f4c3;
+        border-left:8px solid #63f1a5;
+    }
+    .timeline-step {
+        display:flex;
+        align-items:flex-start;
+        gap:20px;
+    }
+    .timeline-step div.step-number {
+        font-size:1.5rem;
+        font-weight:bold;
+        color:#b91c1c;
+        width:30px;
+        flex-shrink:0;
+    }
+    .timeline-step img {
+        width:80px;
+        border-radius:10px;
+        flex-shrink:0;
+    }
+    .step-keyword {
+        color:#1b5e20;
+        font-weight:700;
+        font-size:1.05rem;
+    }
+    .feedback-highlight {
+        color:#b91c1c;
+        font-weight:700;
+        font-size:1.1rem;
+    }
 
-        /* CTAボタンのサイズ調整 */
-        .cta-button {
-            max-width: 450px;
-        }
-    </style>
+    /* FAQカード */
+    .faq-card {
+        background:#ffe4e1;
+        border-left:8px solid #f87171;
+    }
+    .faq-item {
+        margin-bottom:10px;
+        border-bottom:1px dashed rgba(185,28,28,0.2);
+    }
+    .faq-question {
+        width:100%;
+        text-align:left;
+        padding:12px 10px;
+        background:none;
+        border:none;
+        font-family:'Montserrat',sans-serif;
+        font-size:1rem;
+        font-weight:600;
+        color:#1e1e1e;
+        cursor:pointer;
+        outline:none;
+        display:flex;
+        align-items:center;
+        gap:5px;
+        position:relative;
+        transition: background-color 0.2s;
+    }
+    .faq-question:hover {
+        background-color: rgba(185,28,28,0.05);
+    }
+    .faq-question::after {
+        content:'▼';
+        position:absolute;
+        right:10px;
+        font-size:0.8rem;
+        color:#b91c1c;
+        transition: transform 0.3s;
+    }
+    .faq-answer {
+        display:none;
+        background-color: rgba(255,255,255,0.7);
+        padding:10px 15px;
+        border-radius:8px;
+        margin-top:5px;
+        font-size:0.95rem;
+        line-height:1.6;
+    }
+
+    /* CTA */
+    .cta-wrapper {
+        margin-top:20px;
+        margin-bottom:50px;
+        text-align:center;
+    }
+    .cta-button {
+        max-width:450px;
+        background:#b91c1c;
+        color:#fff;
+        font-weight:700;
+        padding:12px 20px;
+        border-radius:10px;
+        display:inline-flex;
+        justify-content:center;
+        align-items:center;
+        gap:10px;
+        text-decoration:none;
+        transition: background 0.3s;
+    }
+    .cta-button:hover {
+        background:#9a1616;
+    }
+    .free-badge {
+        display:inline-block;
+        background:#00bcd4;
+        color:#fff;
+        font-weight:700;
+        padding:5px 10px;
+        border-radius:10px;
+        margin-bottom:10px;
+    }
+
+    footer {
+        background:#b91c1c;
+        color:#fff;
+        text-align:center;
+        padding:20px 0;
+        margin-top:50px;
+    }
+</style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <h1>Vector Nova Academy</h1>
-            <nav>
-                <a href="{{ url_for('index') }}">ホーム</a>
-                <a href="{{ url_for('pricing') }}">料金プラン</a>
-                <a href="{{ url_for('policy') }}">ポリシー</a>
-                <a href="{{ url_for('qanda') }}" class="active">質問・添削</a>
-            </nav>
-        </div>
-    </header>
+<header>
+    <div class="header-container">
+        <h1>Vector Nova Academy</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">ホーム</a>
+            <a href="{{ url_for('pricing') }}">料金プラン</a>
+            <a href="{{ url_for('policy') }}">ポリシー</a>
+            <a href="{{ url_for('qanda') }}" class="active">質問・添削</a>
+        </nav>
+    </div>
+</header>
 
-    <main style="padding: 50px 20px; max-width: 1000px; margin: 0 auto;">
-    <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.5rem; text-align:center; margin-bottom:50px; color:#1e1e1e;">
-        <span style="background-color: #faff5c; padding: 2px 10px; border-radius: 5px; display: inline-block; transform: rotate(-1.5deg);">
-            質問・添削サービス
-        </span>について
-    </h2>
+<main>
+<h2><span>質問・添削サービス</span>について</h2>
 
-    <div class="qanda-section" style="display:flex; flex-direction:column; gap:40px;">
+<div class="qanda-section">
 
-        <div class="qanda-card anonymous-card" style="padding:25px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
-            <h3 style="font-size:1.6rem;">🔒 安心の完全匿名運用</h3>
-            <p style="font-size:1.05rem;">
-                本サービスは<span class="key-emphasis">LINEアカウントとGoogleアカウントのみ</span>でご利用いただけます。
-                質問や提出物は<span class="key-emphasis">Google Forms</span>で受け付け、<span class="key-emphasis">お名前や顔が公開されることは一切ありません</span>。
-                誰にも知られずに、安心して学習の悩みを相談し、添削サービスをご利用いただけます。
-            </p>
-        </div>
+    <!-- 匿名カード -->
+    <div class="qanda-card anonymous-card">
+        <h3><img class="card-icon" src="images/anonymous.png" alt="匿名">🔒 安心の完全匿名運用</h3>
+        <p>
+            本サービスは<span class="key-emphasis">LINEアカウントとGoogleアカウントのみ</span>でご利用いただけます。
+            質問や提出物は<span class="key-emphasis">Google Forms</span>で受け付け、<span class="key-emphasis">お名前や顔が公開されることは一切ありません</span>。
+            誰にも知られずに、安心して学習の悩みを相談し、添削サービスをご利用いただけます。
+        </p>
+        <img src="images/anonymous_card.png" alt="匿名イメージ">
+    </div>
 
-        <div class="qanda-card plan-info-card" style="padding:25px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
-            <h3 style="font-size:1.6rem;">✅ 無料プランと有料プランのご案内</h3>
-            <ul style="margin-left:25px; list-style-type: disc; font-size:1.05rem;">
-                <li><span class="plan-name">無料プラン：</span> 1か月あたりの質問・添削件数に制限がございます。まずは試してみたい方に最適です。</li>
-                <li><span class="plan-name">有料プラン：</span> 質問・添削が<span class="key-emphasis">無制限</span>で可能になります。さらに、有料プランの質問は<span class="key-emphasis">優先的に対応</span>され、回答スピードが向上します。</li>
-                <li>（注意）どちらのプランも学習の参考として提供されます。成果には個人差があることをご了承ください。</li>
-            </ul>
-        </div>
+    <!-- プランカード -->
+    <div class="qanda-card plan-info-card">
+        <h3><img class="card-icon" src="images/plan.png" alt="プラン">✅ 無料プランと有料プランのご案内</h3>
+        <ul>
+            <li><span class="plan-name">無料プラン：</span> 1か月あたりの質問・添削件数に制限があります。まずは試してみたい方に最適です。</li>
+            <li><span class="plan-name">有料プラン：</span> 質問・添削が<span class="key-emphasis">無制限</span>で可能。さらに<span class="key-emphasis">優先対応</span>で回答スピードも向上します。</li>
+            <li>（注意）どちらのプランも学習の参考として提供されます。成果には個人差があります。</li>
+        </ul>
+        <img src="images/plan_card.png" alt="プランイメージ">
+    </div>
 
-        <div class="qanda-card timeline-card" style="padding:25px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
-            <h3 style="font-size:1.6rem;">🚀 サービスご利用の流れ (3ステップ)</h3>
-            <div class="timeline" style="display:flex; flex-direction:column; gap:30px; padding-top:10px;">
+    <!-- タイムラインカード -->
+    <div class="qanda-card timeline-card">
+        <h3><img class="card-icon" src="images/timeline.png" alt="タイムライン">🚀 サービスご利用の流れ (3ステップ)</h3>
 
-                <div class="timeline-step">
-                    <div style="font-size:1.5rem;">1</div>
-                    <div>
-                        <strong style="color:#b91c1c;">【STEP 1】LINEから質問フォームへ！</strong><br>
-                        まずは<span class="step-keyword">公式LINEに友だち追加</span>をお願いします。追加後、トーク画面下の<span class="step-keyword">リッチメニューの「添削依頼」ボタン</span>をタップして表示される<span class="step-keyword">URLにアクセス</span>！その後、<span class="step-keyword">添削フォームを開くボタン</span>を押すとすぐに質問フォーム（Google Forms）へ移動できます。教科を選び、添削希望のファイル（写真など）をアップロードして送信してください。
-                    </div>
+        <div class="timeline">
+            <div class="timeline-step">
+                <div class="step-number">1</div>
+                <img src="images/step1.png" alt="STEP1">
+                <div>
+                    <strong style="color:#b91c1c;">【STEP 1】LINEから質問フォームへ！</strong><br>
+                    まずは<span class="step-keyword">公式LINEに友だち追加</span>。リッチメニューの<span class="step-keyword">「添削依頼」ボタン</span>からフォームへアクセス！
                 </div>
-
-                <div class="timeline-step">
-                    <div style="font-size:1.5rem;">2</div>
-                    <div>
-                        <strong style="color:#b91c1c;">【STEP 2】名大生チームが丁寧に添削</strong><br>
-                        送信された内容を、<span class="step-keyword">名古屋大学の学生チーム</span>が責任を持って確認し、添削を行います。提出された問題や質問の意図を正確に読み取り、最適なフィードバックを準備します。
-                    </div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-number">2</div>
+                <img src="images/step2.png" alt="STEP2">
+                <div>
+                    <strong style="color:#b91c1c;">【STEP 2】名大生チームが丁寧に添削</strong><br>
+                    <span class="step-keyword">名古屋大学の学生チーム</span>が提出内容を確認し、最適なフィードバックを準備します。
                 </div>
-
-                <div class="timeline-step">
-                    <div style="font-size:1.5rem;">3</div>
-                    <div>
-                        <strong style="color:#b91c1c;">【STEP 3】回答受け取り＆学習に活かす！</strong><br>
-                        添削済みの回答が届きます。担当講師の名前が明示され、<span class="feedback-highlight">類題提供や今後の学習への具体的なアドバイス</span>など、あなただけに向けたフィードバックが得られます。次の学習にぜひ役立ててください！
-                    </div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-number">3</div>
+                <img src="images/step3.png" alt="STEP3">
+                <div>
+                    <strong style="color:#b91c1c;">【STEP 3】回答受け取り＆学習に活かす！</strong><br>
+                    添削済みの回答が届き、<span class="feedback-highlight">具体的な学習アドバイス</span>が得られます。
                 </div>
-
             </div>
-        </div>
-
-        <div class="qanda-card faq-card" style="padding:25px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.1);">
-            <h3 style="font-size:1.6rem;">💡 よくある質問 (FAQ)</h3>
-            
-            <div class="faq-item">
-                <button class="faq-question">回答はどれくらいで届きますか？</button>
-                <div class="faq-answer" style="display:none;">プランに応じて数時間〜数日でお届けします。有料プランは優先対応でよりスピーディです。</div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="faq-question">質問の修正やキャンセルはできますか？</button>
-                <div class="faq-answer" style="display:none;">質問送信後、システムが処理を開始すると原則として修正・キャンセルは承れません。送信前に内容を十分にご確認ください。</div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="faq-question">個人情報の取り扱いについて教えてください。</button>
-                <div class="faq-answer" style="display:none;">お客様からいただいた情報は、回答作成の目的のみに使用し、厳重に管理いたします。詳細はプライバシーポリシーをご覧ください。</div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="faq-question">著作権や倫理に反する質問はできますか？</button>
-                <div class="faq-answer" style="display:none;">できません。著作権を侵害する内容、または公序良俗・倫理に反する質問の送信はご遠慮ください。</div>
-            </div>
-        </div>
-
-
-        <div class="cta-wrapper" style="margin-top:20px; margin-bottom: 50px;">
-            <div class="free-badge">無料！</div>
-            <a href="{{ url_for('business_line') }}" class="cta-button" style="text-decoration: none; display: flex; justify-content: center;">
-                🚀 LINEで質問・添削依頼を送る
-            </a>
         </div>
     </div>
-    </main>
 
+    <!-- FAQカード -->
+    <div class="qanda-card faq-card">
+        <h3><img class="card-icon" src="images/faq.png" alt="FAQ">💡 よくある質問 (FAQ)</h3>
 
-    <footer style="background:#b91c1c; color:#fff; text-align:center; padding:20px 0; margin-top:50px;">
-        <p>&copy; 2025 Vector Nova Academy</p>
-    </footer>
+        <div class="faq-item">
+            <button class="faq-question"><img src="images/clock-icon.png" alt="" style="width:20px;">回答はどれくらいで届きますか？</button>
+            <div class="faq-answer">プランに応じて数時間〜数日でお届け。有料プランは優先対応でスピーディです。</div>
+        </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const faqQuestions = document.querySelectorAll('.faq-question');
-            faqQuestions.forEach(button => {
-                button.addEventListener('click', () => {
-                    const answer = button.nextElementSibling;
-                    const isExpanded = answer.style.display === 'block';
+        <div class="faq-item">
+            <button class="faq-question"><img src="images/edit-icon.png" alt="" style="width:20px;">質問の修正やキャンセルはできますか？</button>
+            <div class="faq-answer">送信後は原則修正・キャンセル不可です。送信前に内容をご確認ください。</div>
+        </div>
 
-                    // すべての回答を閉じる
-                    document.querySelectorAll('.faq-answer').forEach(ans => {
-                        ans.style.display = 'none';
-                        ans.previousElementSibling.classList.remove('active');
-                    });
+        <div class="faq-item">
+            <button class="faq-question"><img src="images/privacy-icon.png" alt="" style="width:20px;">個人情報の取り扱いについて教えてください。</button>
+            <div class="faq-answer">提供情報は回答作成目的のみに使用し、厳重管理します。詳細はプライバシーポリシーをご覧ください。</div>
+        </div>
 
-                    // クリックされた回答を開く
-                    if (!isExpanded) {
-                        answer.style.display = 'block';
-                        button.classList.add('active');
-                    }
-                });
+        <div class="faq-item">
+            <button class="faq-question"><img src="images/no-icon.png" alt="" style="width:20px;">著作権や倫理に反する質問はできますか？</button>
+            <div class="faq-answer">できません。著作権侵害や公序良俗に反する質問はご遠慮ください。</div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-wrapper">
+        <div class="free-badge">無料！</div>
+        <a href="{{ url_for('business_line') }}" class="cta-button">
+            🚀 LINEで質問・添削依頼を送る
+        </a>
+    </div>
+
+</div>
+</main>
+
+<footer>
+    <p>&copy; 2025 Vector Nova Academy</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(button => {
+        button.addEventListener('click', () => {
+            const answer = button.nextElementSibling;
+            const isExpanded = answer.style.display === 'block';
+
+            document.querySelectorAll('.faq-answer').forEach(ans => {
+                ans.style.display = 'none';
+                ans.previousElementSibling.classList.remove('active');
             });
+
+            if (!isExpanded) {
+                answer.style.display = 'block';
+                button.classList.add('active');
+            }
         });
-    </script>
+    });
+});
+</script>
 </body>
 </html>
