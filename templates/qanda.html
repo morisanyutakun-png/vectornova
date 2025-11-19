@@ -56,7 +56,7 @@ h2 span {
 .qanda-section {
     display:flex;
     flex-direction:column;
-    gap:40px;
+    gap:50px;
 }
 
 .qanda-card {
@@ -65,6 +65,9 @@ h2 span {
     padding:25px;
     box-shadow:0 8px 20px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display:flex;
+    flex-direction: column;
+    gap:20px;
 }
 .qanda-card:hover {
     transform: translateY(-5px);
@@ -90,6 +93,10 @@ h2 span {
 .anonymous-card {
     background:#fff8dc;
     border-left:8px solid #faff5c;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 .anonymous-card .key-emphasis {
     color:#b91c1c;
@@ -97,15 +104,21 @@ h2 span {
     font-size:1.1rem;
 }
 .anonymous-card img {
-    float:right;
-    width:150px; 
+    width:250px;
+    max-width:100%;
     border-radius:10px;
+    margin-top:15px;
+    flex-shrink:0;
 }
 
 /* プランカード */
 .plan-info-card {
     background:#e0f7fa;
     border-left:8px solid #00bcd4;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 .plan-info-card li::marker {
     color:#b91c1c;
@@ -117,43 +130,54 @@ h2 span {
     font-size:1.1rem;
 }
 .plan-info-card img {
-    float:right;
-    width:180px; 
+    width:250px;
+    max-width:100%;
     border-radius:10px;
     margin-left:15px;
+    margin-top:15px;
+    flex-shrink:0;
 }
 
-/* タイムラインカード */
-.timeline-card {
-    background:#f0f4c3;
-    border-left:8px solid #63f1a5;
+/* CTA */
+.cta-wrapper {
+    margin-top:20px;
+    margin-bottom:50px;
+    text-align:center;
 }
-.timeline-step {
-    display:flex;
-    align-items:flex-start;
-    gap:20px;
-}
-.timeline-step div.step-number {
-    font-size:1.5rem;
-    font-weight:bold;
-    color:#b91c1c;
-    width:30px;
-    flex-shrink:0;
-}
-.timeline-step img {
-    width:100px; 
+.cta-button {
+    max-width:450px;
+    background:#00c853; /* 緑 */
+    color:#fff;
+    font-weight:700;
+    padding:12px 20px;
     border-radius:10px;
-    flex-shrink:0;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    position:relative;
+    flex-wrap: wrap;
 }
-.step-keyword {
-    color:#1b5e20;
+.cta-button .bubble {
+    background:#b91c1c; /* 吹き出しだけ赤 */
+    color:#fff;
     font-weight:700;
-    font-size:1.05rem;
+    padding:5px 10px;
+    border-radius:12px;
+    margin-right:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
-.feedback-highlight {
-    color:#b91c1c;
+.free-badge {
+    display:inline-block;
+    background:#00bcd4;
+    color:#fff;
     font-weight:700;
-    font-size:1.1rem;
+    padding:5px 10px;
+    border-radius:10px;
+    margin-bottom:10px;
 }
 
 /* FAQカード */
@@ -204,47 +228,16 @@ h2 span {
     line-height:1.6;
 }
 
-/* CTA */
-.cta-wrapper {
-    margin-top:20px;
-    margin-bottom:50px;
-    text-align:center;
+/* メディアクエリでスマホ対応 */
+@media (max-width:768px){
+    .anonymous-card, .plan-info-card {
+        flex-direction: column;
+        align-items: center;
+    }
+    .anonymous-card img, .plan-info-card img {
+        margin-top:15px;
+    }
 }
-.cta-button {
-    max-width:450px;
-    background:#00c853; /* 緑 */
-    color:#fff;
-    font-weight:700;
-    padding:12px 20px;
-    border-radius:10px;
-    display:inline-flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    text-decoration:none;
-    position:relative;
-}
-.cta-button .bubble {
-    background:#b91c1c; /* 吹き出しだけ赤 */
-    color:#fff;
-    font-weight:700;
-    padding:5px 10px;
-    border-radius:12px;
-    margin-right:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-.free-badge {
-    display:inline-block;
-    background:#00bcd4;
-    color:#fff;
-    font-weight:700;
-    padding:5px 10px;
-    border-radius:10px;
-    margin-bottom:10px;
-}
-
 footer {
     background:#b91c1c;
     color:#fff;
@@ -274,28 +267,34 @@ footer {
 
     <!-- 匿名カード -->
     <div class="qanda-card anonymous-card">
-        <h3><img class="card-icon" src="static/images/anonymous.png" alt="匿名">🔒 安心の完全匿名運用</h3>
-        <p>
-            本サービスは<span class="key-emphasis">LINEアカウントとGoogleアカウントのみ</span>でご利用いただけます。
-            質問や提出物は<span class="key-emphasis">Google Forms</span>で受け付け、<span class="key-emphasis">お名前や顔が公開されることは一切ありません</span>。
-            誰にも知られずに、安心して学習の悩みを相談し、添削サービスをご利用いただけます。
-        </p>
-        <img src="static/images/anonymous_card.png" alt="匿名イメージ">
+        <div>
+            <h3><img class="card-icon" src="static/images/anonymous.png" alt="匿名">🔒 安心の完全匿名運用</h3>
+            <p>
+                本サービスは<br>
+                <span class="key-emphasis">LINEアカウントとGoogleアカウントのみ</span>でご利用いただけます。<br>
+                質問や提出物は<span class="key-emphasis">Google Forms</span>で受け付け、<br>
+                <span class="key-emphasis">お名前や顔が公開されることは一切ありません</span>。<br>
+                誰にも知られずに、安心して学習の悩みを相談し、添削サービスをご利用いただけます。
+            </p>
+        </div>
+        <img src="static/images/anonymous_card.png" alt="匿名イメージ" loading="lazy">
     </div>
 
     <!-- プランカード -->
     <div class="qanda-card plan-info-card">
-        <h3><img class="card-icon" src="static/images/plan.png" alt="プラン">✅ 無料プランと有料プランのご案内</h3>
-        <ul>
-            <li><span class="plan-name">無料プラン：</span> 1か月あたりの質問・添削件数に制限があります。まずは試してみたい方に最適です。</li>
-            <li><span class="plan-name">有料プラン：</span> 質問・添削が<span class="key-emphasis">無制限</span>で可能。さらに<span class="key-emphasis">優先対応</span>で回答スピードも向上します。</li>
-            <li>（注意）どちらのプランも学習の参考として提供されます。成果には個人差があります。</li>
-        </ul>
-        <img src="static/images/plan_card.png" alt="プランイメージ">
+        <div>
+            <h3><img class="card-icon" src="static/images/plan.png" alt="プラン">✅ 無料プランと有料プランのご案内</h3>
+            <ul>
+                <li><span class="plan-name">無料プラン：</span><br>1か月あたりの質問・添削件数に制限があります。まずは試してみたい方に最適です。</li>
+                <li><span class="plan-name">有料プラン：</span><br>質問・添削が<span class="key-emphasis">無制限</span>で可能。さらに<span class="key-emphasis">優先対応</span>で回答スピードも向上します。</li>
+                <li>（注意）どちらのプランも学習の参考として提供されます。成果には個人差があります。</li>
+            </ul>
+        </div>
+        <img src="static/images/plan_card.png" alt="プランイメージ" loading="lazy">
     </div>
 
     <!-- CTA -->
-    <div class="cta-wrapper" style="max-width:450px; margin-left:auto; margin-right:auto;">
+    <div class="cta-wrapper">
         <div class="free-badge">無料！</div>
         <a href="{{ url_for('business_line') }}" class="cta-button">
             <span class="bubble">🚀</span>
