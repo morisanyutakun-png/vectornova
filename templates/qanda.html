@@ -10,27 +10,30 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #fdfdfd;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
+    word-break: keep-all;
 }
 header {
-    background:#b91c1c;
-    color:#fff;
-    padding:15px 20px;
+    background: #b91c1c;
+    color: #fff;
+    padding: 15px 20px;
 }
 header h1 {
-    margin:0;
-    font-family:'Poppins', sans-serif;
-    font-size:1.8rem;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    white-space: nowrap;
 }
 nav a {
-    color:#fff;
-    text-decoration:none;
-    margin-left:20px;
-    font-weight:500;
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    white-space: nowrap;
 }
 nav a.active {
-    text-decoration:underline;
+    text-decoration: underline;
 }
 main {
     padding: 50px 20px;
@@ -40,9 +43,9 @@ main {
 h2 {
     font-family: 'Poppins', sans-serif;
     font-size: 2.5rem;
-    text-align:center;
-    margin-bottom:50px;
-    color:#1e1e1e;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #1e1e1e;
 }
 h2 span {
     background-color: #faff5c;
@@ -52,41 +55,41 @@ h2 span {
     transform: rotate(-1.5deg);
 }
 .qanda-section {
-    display:flex;
-    flex-direction:column;
-    gap:50px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
 }
-
 /* ---------------- フェードインアニメーション ---------------- */
 .fade-in {
-    opacity:0;
-    transform: translateY(30px);
-    animation: fadeInUp 1s forwards;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeInUp 0.9s ease forwards;
 }
 @keyframes fadeInUp {
-    to {
-        opacity:1;
-        transform: translateY(0);
-    }
+    to { opacity: 1; transform: translateY(0); }
 }
-
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
 /* ---------------- カード共通 ---------------- */
 .qanda-card {
     position: relative;
-    border-radius:20px;
-    overflow:hidden;
-    min-height:400px;
-    box-shadow:0 20px 50px rgba(0,0,0,0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 20px;
+    overflow: hidden;
+    min-height: 400px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    transition: transform 0.35s, box-shadow 0.35s;
     background-size: cover;
     background-position: center;
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: flex-end;
 }
 .qanda-card:hover {
-    transform: translateY(-5px);
-    box-shadow:0 30px 70px rgba(0,0,0,0.25);
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.25);
 }
 .qanda-card .card-content {
     position: relative;
@@ -94,235 +97,53 @@ h2 span {
     padding: 25px;
     border-radius: 15px;
     width: 100%;
+    backdrop-filter: blur(5px);
+    animation: float 3s ease-in-out infinite;
 }
 .qanda-card h3 {
-    margin:0 0 15px 0;
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;
-    color:#b91c1c;
-    font-size:1.4rem;
+    margin: 0 0 15px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #b91c1c;
+    font-size: 1.4rem;
 }
-
 /* ---------------- 匿名カード ---------------- */
 .anonymous-card {
-    background-image: url('{{ url_for('static', filename='images/anonymous_card.png') }}');
+    background-image: url('{{ url_for('static', filename='images/anonymous.png') }}'), url('{{ url_for('static', filename='images/anonymous_card.png') }}');
 }
-
 /* ---------------- プランカード ---------------- */
 .plan-info-card {
-    background-image: url('{{ url_for('static', filename='images/plan_card.png') }}');
+    background-image: url('{{ url_for('static', filename='images/plan.png') }}'), url('{{ url_for('static', filename='images/plan_card.png') }}');
 }
-.plan-info-card ul {
-    padding-left:20px;
-    margin:0;
-}
-.plan-info-card li {
-    margin-bottom:12px;
-    line-height:1.6;
-}
-.plan-name {
-    color:#b91c1c;
-    font-weight:700;
-}
-
+.plan-info-card ul { padding-left: 20px; margin: 0; }
+.plan-info-card li { margin-bottom: 12px; line-height: 1.6; }
+.plan-name { color: #b91c1c; font-weight: 700; }
 /* ---------------- タイムラインカード ---------------- */
-.timeline-card {
-    background-image: url('{{ url_for('static', filename='images/timeline_bg.png') }}');
-    padding: 25px 20px;
-}
-.timeline-card h3 {
-    margin-bottom:25px;
-    text-align:center;
-    background: rgba(255,255,255,0.9);
-    display: inline-block;
-    padding: 10px 15px;
-    border-radius: 12px;
-}
-.timeline {
-    display:flex;
-    gap:20px;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-.timeline-step {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    flex:1;
-    min-width:250px;
-}
-.timeline-step .step-number {
-    font-size:1.8rem;
-    font-weight:bold;
-    color:#b91c1c;
-    margin-bottom:12px;
-}
-.timeline-step img {
-    width:140px;
-    border-radius:15px;
-    margin-bottom:10px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.2);
-}
-.timeline-step .step-text {
-    background: rgba(255,255,255,0.92);
-    padding:12px;
-    border-radius:12px;
-    line-height:1.6;
-    font-size:0.95rem;
-}
-
+.timeline-card { background-image: url('{{ url_for('static', filename='images/timelines.png') }}'); padding: 25px 20px; }
+.timeline-card h3 { margin-bottom: 25px; text-align: center; background: rgba(255,255,255,0.9); display: inline-block; padding: 10px 15px; border-radius: 12px; }
+.timeline { display: flex; gap: 20px; justify-content: space-between; flex-wrap: wrap; }
+.timeline-step { display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1; min-width: 250px; animation: float 4s ease-in-out infinite; }
+.timeline-step img { width: 140px; border-radius: 15px; margin-bottom: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+.timeline-step .step-text { background: rgba(255,255,255,0.92); padding: 12px; border-radius: 12px; line-height: 1.6; font-size: 0.95rem; }
 /* ---------------- FAQカード ---------------- */
-.faq-card {
-    background-color: #fff;
-    padding:40px 20px;
-    border-radius:20px;
-    box-shadow:0 20px 50px rgba(0,0,0,0.2);
-}
-.faq-card .card-content {
-    background: rgba(255,255,255,0.95);
-    padding:25px;
-    border-radius:15px;
-}
-.faq-item {
-    margin-bottom:18px;
-    display:flex;
-    align-items:center;
-}
-.faq-question {
-    width:100%;
-    text-align:left;
-    padding:14px 15px 14px 50px;
-    background:none;
-    border:none;
-    font-family:'Montserrat',sans-serif;
-    font-size:1.05rem;
-    font-weight:600;
-    color:#1e1e1e;
-    cursor:pointer;
-    outline:none;
-    position:relative;
-    transition: background-color 0.2s;
-}
-.faq-question:hover {
-    background-color: rgba(185,28,28,0.05);
-}
-.faq-question::after {
-    content:'▼';
-    position:absolute;
-    right:15px;
-    font-size:0.8rem;
-    color:#b91c1c;
-    transition: transform 0.3s;
-}
-.faq-answer {
-    display:none;
-    padding:12px 15px;
-    font-size:0.95rem;
-    line-height:1.6;
-    border-left:3px solid #b91c1c;
-    margin-top:5px;
-    background: rgba(255,255,255,0.88);
-    border-radius:8px;
-}
-
-/* FAQアイコン（サイズ大きめに調整） */
-.faq-question.clock::before,
-.faq-question.edit::before,
-.faq-question.faq::before,
-.faq-question.privacy::before,
-.faq-question.no::before {
-    content: '';
-    position: absolute;
-    left:15px;
-    top:50%;
-    transform: translateY(-50%);
-    width:32px;   /* アイコン幅を大きく */
-    height:32px;  /* アイコン高さを大きく */
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-/* 個別アイコン画像指定 */
-.faq-question.clock::before {
-    background-image: url('{{ url_for('static', filename='images/clock-icon.png') }}');
-}
-.faq-question.edit::before {
-    background-image: url('{{ url_for('static', filename='images/edit-icon.png') }}');
-}
-.faq-question.faq::before {
-    background-image: url('{{ url_for('static', filename='images/faq.png') }}');
-}
-.faq-question.privacy::before {
-    background-image: url('{{ url_for('static', filename='images/privacy.png') }}');
-}
-.faq-question.no::before {
-    background-image: url('{{ url_for('static', filename='images/no-icon.png') }}');
-}
-
-/* ボタンの左パディングもアイコンサイズに合わせて調整 */
-.faq-question {
-    padding-left: 55px; /* 元は50px */
-}
-
+.faq-card { background-color: #fff; padding: 40px 20px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+.faq-card .card-content { background: rgba(255,255,255,0.95); padding: 25px; border-radius: 15px; animation: float 3.5s ease-in-out infinite; }
+.faq-item { margin-bottom: 18px; display: flex; align-items: center; }
+.faq-question { width: 100%; text-align: left; padding: 14px 15px 14px 55px; background: none; border: none; font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 600; color: #1e1e1e; cursor: pointer; outline: none; position: relative; transition: background-color 0.25s; }
+.faq-question:hover { background-color: rgba(185,28,28,0.05); }
+.faq-question::after { content: '▼'; position: absolute; right: 15px; font-size: 0.8rem; color: #b91c1c; transition: transform 0.3s; }
+.faq-answer { display: none; padding: 12px 15px; font-size: 0.95rem; line-height: 1.6; border-left: 3px solid #b91c1c; margin-top: 5px; background: rgba(255,255,255,0.88); border-radius: 8px; }
+.faq-question.clock::before { content: ''; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: url('{{ url_for('static', filename='images/clock-icon.png') }}') no-repeat center/contain; }
+.faq-question.edit::before { content: ''; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: url('{{ url_for('static', filename='images/edit-icon.png') }}') no-repeat center/contain; }
+.faq-question.faq::before { content: ''; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: url('{{ url_for('static', filename='images/faq.png') }}') no-repeat center/contain; }
+.faq-question.privacy::before { content: ''; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: url('{{ url_for('static', filename='images/privacy.png') }}') no-repeat center/contain; }
+.faq-question.no::before { content: ''; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: url('{{ url_for('static', filename='images/no-icon.png') }}') no-repeat center/contain; }
 /* ---------------- CTA ---------------- */
-.cta-wrapper {
-    margin-top:25px;
-    margin-bottom:60px;
-    text-align:center;
-}
-.cta-button {
-    max-width:450px;
-    background:#b91c1c;
-    color:#fff;
-    font-weight:700;
-    padding:14px 22px;
-    border-radius:10px;
-    display:inline-flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    text-decoration:none;
-    transition: background 0.3s, transform 0.3s;
-}
-.cta-button:hover {
-    background:#9a1616;
-    transform: translateY(-2px);
-}
-.free-badge {
-    display:inline-block;
-    background:#00bcd4;
-    color:#fff;
-    font-weight:700;
-    padding:6px 12px;
-    border-radius:10px;
-    margin-bottom:12px;
-}
-
-/* ---------------- メディアクエリ ---------------- */
-@media (max-width:768px){
-    .qanda-card {
-        flex-direction: column;
-        align-items: center;
-        height:auto;
-    }
-    .timeline {
-        flex-direction: column;
-        gap:30px;
-        align-items:center;
-    }
-    .timeline-step img {
-        width:160px;
-    }
-}
-
-footer {
-    background:#b91c1c;
-    color:#fff;
-    text-align:center;
-    padding:20px 0;
-    margin-top:50px;
-}
+.cta-wrapper { margin-top: 25px; margin-bottom: 60px; text-align: center; }
+.cta-button { max-width: 450px; background: #b91c1c; color: #fff; font-weight: 700; padding: 14px 22px; border-radius: 10px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; text-decoration: none; transition: transform 0.3s, background 0.3s; }
+.cta-button:hover { background: #9a1616; transform: translateY(-3px); }
+.free-badge { display: inline-block; background: #00bcd4; color: #fff; font-weight: 700; padding: 6px 12px; border-radius: 10px; margin-bottom: 12px; }
+footer { background: #b91c1c; color: #fff; text-align: center; padding: 20px 0; margin-top: 50px; }
 </style>
 </head>
 <body>
@@ -337,21 +158,15 @@ footer {
         </nav>
     </div>
 </header>
-
 <main>
 <h2><span>質問・添削サービス</span>について</h2>
-
 <div class="qanda-section">
-
-    <!-- 匿名カード -->
     <div class="qanda-card anonymous-card fade-in">
         <div class="card-content">
             <h3>🔒 安心の完全匿名運用</h3>
             <p>LINE・Googleアカウントのみで利用可能。お名前や顔は一切公開されません。</p>
         </div>
     </div>
-
-    <!-- プランカード -->
     <div class="qanda-card plan-info-card fade-in" style="animation-delay:0.2s;">
         <div class="card-content">
             <h3>✅ 無料プランと有料プランのご案内</h3>
@@ -361,8 +176,6 @@ footer {
             </ul>
         </div>
     </div>
-
-    <!-- タイムラインカード -->
     <div class="qanda-card timeline-card fade-in" style="animation-delay:0.4s;">
         <h3>🚀 サービスご利用の流れ (3ステップ)</h3>
         <div class="timeline">
@@ -370,30 +183,25 @@ footer {
                 <div class="step-number">1</div>
                 <img src="{{ url_for('static', filename='images/step1.png') }}" alt="STEP1">
                 <div class="step-text">
-                    <strong>【STEP 1】LINEから質問フォームへ！</strong><br>
-                    公式LINEに友だち追加して、リッチメニューの「添削依頼」ボタンからフォームへアクセス！
+                    <strong>【STEP 1】LINEから質問フォームへ！</strong><br>公式LINEの「添削依頼」ボタンからフォームへアクセス！
                 </div>
             </div>
             <div class="timeline-step">
                 <div class="step-number">2</div>
                 <img src="{{ url_for('static', filename='images/step2.png') }}" alt="STEP2">
                 <div class="step-text">
-                    <strong>【STEP 2】名大生チームが丁寧に添削</strong><br>
-                    名古屋大学の学生チームが提出内容を確認し、最適なフィードバックを準備します。
+                    <strong>【STEP 2】名大生チームが丁寧に添削</strong><br>名古屋大学の学生チームが最適なフィードバックを作成します。
                 </div>
             </div>
             <div class="timeline-step">
                 <div class="step-number">3</div>
                 <img src="{{ url_for('static', filename='images/step3.png') }}" alt="STEP3">
                 <div class="step-text">
-                    <strong>【STEP 3】回答受け取り＆学習に活かす！</strong><br>
-                    添削済みの回答が届き、<span class="feedback-highlight">具体的な学習アドバイス</span>が得られます。
+                    <strong>【STEP 3】回答受け取り＆学習に活かす！</strong><br>添削済みの回答と具体的な改善アドバイスが届きます。
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- FAQカード -->
     <div class="qanda-card faq-card fade-in" style="animation-delay:0.6s;">
         <div class="card-content">
             <h3>💡 よくある質問 (FAQ)</h3>
@@ -403,47 +211,40 @@ footer {
             </div>
             <div class="faq-item">
                 <button class="faq-question edit">質問の修正やキャンセルはできますか？</button>
-                <div class="faq-answer">送信後は原則修正・キャンセル不可です。送信前に内容をご確認ください。</div>
+                <div class="faq-answer">送信後は原則修正不可です。送信前に内容をご確認ください。</div>
             </div>
             <div class="faq-item">
                 <button class="faq-question privacy">個人情報の取り扱いについて教えてください。</button>
-                <div class="faq-answer">提供情報は回答作成目的のみに使用し、厳重管理します。詳細はプライバシーポリシーをご覧ください。</div>
+                <div class="faq-answer">提供情報は回答作成のみに使用し厳重管理します。詳細はポリシーをご確認ください。</div>
             </div>
             <div class="faq-item">
                 <button class="faq-question faq">著作権や倫理に反する質問はできますか？</button>
-                <div class="faq-answer">できません。著作権侵害や公序良俗に反する質問はご遠慮ください。</div>
+                <div class="faq-answer">できません。法令・倫理に反する内容は受け付けていません。</div>
             </div>
             <div class="faq-item">
                 <button class="faq-question no">その他の質問</button>
-                <div class="faq-answer">上記にない質問についてもお問い合わせください。</div>
+                <div class="faq-answer">その他の疑問についてもお気軽にお問い合わせください。</div>
             </div>
         </div>
     </div>
-
-    <!-- CTA -->
     <div class="cta-wrapper fade-in" style="animation-delay:0.8s;">
         <div class="free-badge">無料！</div>
-        <a href="{{ url_for('business_line') }}" class="cta-button">
-            🚀 LINEで質問・添削依頼を送る
-        </a>
+        <a href="{{ url_for('business_line') }}" class="cta-button">🚀 LINEで質問・添削依頼を送る</a>
     </div>
-
 </div>
 </main>
-
 <footer>
     <p>&copy; 2025 Vector Nova Academy</p>
 </footer>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(button => {
-        button.addEventListener('click', () => {
-            const answer = button.nextElementSibling;
-            const isExpanded = answer.style.display === 'block';
-            document.querySelectorAll('.faq-answer').forEach(ans => ans.style.display='none');
-            if (!isExpanded) answer.style.display='block';
+    faqQuestions.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const answer = btn.nextElementSibling;
+            const isOpen = answer.style.display === 'block';
+            document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+            if (!isOpen) answer.style.display = 'block';
         });
     });
 });
