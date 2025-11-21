@@ -81,8 +81,55 @@
     </main>
 
 <!-- ===================== フッター ===================== -->
-<footer>
-    <p>&copy; 2025 Vector Nova Academy</p>
+<footer class="site-footer">
+    <div class="footer-container">
+
+        <!-- アバウト -->
+        <div class="footer-section about">
+            <h3>Vector Nova Academy</h3>
+            <p>
+                質問対応・添削・学習管理を中心としたオンライン個別サポート塾。
+                高校生・大学受験生向けに、効率的な学習習慣づくりを支援します。
+            </p>
+        </div>
+
+        <!-- サイト情報 -->
+        <div class="footer-section info">
+            <h4>サイト情報</h4>
+            <ul>
+                <li>運営：Vector Nova Academy 運営事務局</li>
+                <li>メール：<a href="vector.nova@gmail.com">vector.nova@gmail.com</a></li>
+                <li>営業時間：10:00〜22:00（年中無休）</li>
+            </ul>
+        </div>
+
+        <!-- リンク -->
+        <div class="footer-section links">
+            <h4>リンク</h4>
+            <ul>
+                <li><a href="/index">ホーム</a></li>
+                <li><a href="/policy">利用規約</a></li>
+                <li><a href="/pricing">料金プラン</a></li>
+                <li><a href="/qanda">質問・添削ページ</a></li>
+            </ul>
+        </div>
+
+        <!-- SNS -->
+        <div class="footer-section social">
+            <h4>SNS</h4>
+            <div class="footer-social-icons">
+                <a href="#"><img src="{{ url_for('static', filename='images/twitter.png') }}" alt="X"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/instagram.png') }}" alt="Instagram"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/youtube.png') }}" alt="YouTube"></a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- コピーライト -->
+    <div class="footer-bottom">
+        <p>&copy; 2025 Vector Nova Academy. All Rights Reserved.</p>
+    </div>
 </footer>
 </body>
 </html>

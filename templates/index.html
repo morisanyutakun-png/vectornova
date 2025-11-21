@@ -1,71 +1,339 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vector Nova Academy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vector Nova Academy</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+/* ================= カルーセル ================= */
+.carousel {
+  position: relative;
+  max-width: 900px;
+  margin: 40px auto;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.carousel-track-container {
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  position: relative;
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transition: transform 0.3s;
+}
+
+/* 矢印ボタン */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 24px;
+  z-index: 2;
+  transition: background 0.3s;
+}
+
+.carousel-btn:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+/* ページネーション */
+.carousel-nav {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.carousel-nav button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  margin: 0 5px;
+  background-color: #bbb;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.carousel-nav button.active {
+  background-color: #b91c1c;
+}
+
+/* ================= ヒーローセクション ================= */
+.hero {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.hero-title { font-size: 1.8rem; }
+.highlight { color: #b91c1c; }
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 15px;
+  font-size: 0.95rem;
+}
+
+.cta-button {
+  background-color: #b91c1c;
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.free-badge {
+  background-color: #ff4757;
+  color: #fff;
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+
+/* ================= フッター ================= */
+.site-footer {
+  width: 100%;
+  background-color: #b91c1c;
+  color: #fff;
+  padding: 50px 0 20px;
+  margin-top: 60px;
+  font-family: 'Roboto', sans-serif;
+  word-break: break-word;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-section {
+  flex: 1 1 220px;
+  margin: 10px;
+}
+
+.footer-section h3, .footer-section h4 {
+  margin-bottom: 10px;
+}
+
+.footer-section a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.footer-social-icons a img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #f0f0f0;
+}
+
+/* スマホ対応 */
+@media(max-width: 768px) { .carousel-slide img { height: 180px; } }
+@media(max-width: 480px) { .carousel-slide img { height: 140px; } .footer-container { flex-direction: column; align-items: center; } }
+</style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <h1>Vector Nova Academy</h1>
-            <nav>
-                <a href="{{ url_for('index') }}" class="active">ホーム</a>
-                <a href="{{ url_for('pricing') }}">料金プラン</a>
-                <a href="{{ url_for('policy') }}">ポリシー</a>
-                <a href="{{ url_for('qanda') }}">質問・添削</a>
-            </nav>
+<header>
+    <div class="header-container">
+        <h1>Vector Nova Academy</h1>
+        <nav>
+            <a href="{{ url_for('index') }}" class="active">ホーム</a>
+            <a href="{{ url_for('pricing') }}">料金プラン</a>
+            <a href="{{ url_for('policy') }}">ポリシー</a>
+            <a href="{{ url_for('qanda') }}">質問・添削</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <!-- カルーセルスライドショー -->
+    <section class="carousel">
+        <div class="carousel-track-container">
+            <ul class="carousel-track">
+                <li class="carousel-slide active"><img src="{{ url_for('static', filename='images/image2.PNG') }}" alt="メイン画像"></li>
+                <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner1.png') }}" alt="バナー1"></li>
+                <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner2.png') }}" alt="バナー2"></li>
+                <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner3.png') }}" alt="バナー3"></li>
+                <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner4.png') }}" alt="バナー4"></li>
+            </ul>
         </div>
-    </header>
+        <button class="carousel-btn prev">&lt;</button>
+        <button class="carousel-btn next">&gt;</button>
+        <div class="carousel-nav"></div>
+    </section>
 
-    <main>
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">
+                名大生運営の<br>
+                <span class="highlight">完全オンライン添削質問塾</span>
+            </h2>
+            <p class="hero-subtitle">Vector Nova Academyは、誰でも質問・添削依頼ができるオンライン塾です。</p>
 
-        <section class="hero-image">
-            <img src="{{ url_for('static', filename='images/image2.PNG') }}" alt="メイン画像">
-        </section>
-
-        <section class="hero">
-            <div class="hero-content">
-                <h2 class="hero-title">
-                    名大生運営の<br>
-                    <span class="highlight">完全オンライン添削質問塾</span>
-                </h2>
-                <p class="hero-subtitle">Vector Nova Academyは、誰でも質問・添削依頼ができるオンライン塾です。</p>
-
-                <div class="features">
-                    <span>LINEとGoogle Formsで無料の質問・添削が可能</span>
-                    <span>名大生による安心・高品質サポート</span>
-                    <span>お手頃な有料プランで無制限開放</span>
-                </div>
-
-                <div class="cta-wrapper" style="
-                    margin-top:20px; 
-                    margin-bottom: 50px; 
-                    max-width: 450px; 
-                    margin-left: auto; 
-                    margin-right: auto;
-                ">
-                    <div class="free-badge">無料！</div>
-                    <a href="{{ url_for('business_line') }}" class="cta-button" style="
-                        width: 100%; 
-                        text-decoration: none; 
-                        display: flex; 
-                        justify-content: center;
-                    ">
-                        🚀 LINEで質問・添削依頼を送る
-                    </a>
-                </div>
+            <div class="features">
+                <span>LINEとGoogle Formsで無料の質問・添削が可能</span>
+                <span>名大生による安心・高品質サポート</span>
+                <span>お手頃な有料プランで無制限開放</span>
             </div>
-        </section>
 
-    </main>
+            <div class="cta-wrapper" style="margin-top:20px; margin-bottom:50px; max-width:450px; margin-left:auto; margin-right:auto;">
+                <div class="free-badge">無料！</div>
+                <a href="{{ url_for('business_line') }}" class="cta-button" style="width:100%; text-decoration:none; display:flex; justify-content:center;">
+                    🚀 LINEで質問・添削依頼を送る
+                </a>
+            </div>
+        </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2025 Vector Nova Academy</p>
-    </footer>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+
+        <!-- アバウト -->
+        <div class="footer-section about">
+            <h3>Vector Nova Academy</h3>
+            <p>
+                質問対応・添削・学習管理を中心としたオンライン個別サポート塾。
+                高校生・大学受験生向けに、効率的な学習習慣づくりを支援します。
+            </p>
+        </div>
+
+        <!-- サイト情報 -->
+        <div class="footer-section info">
+            <h4>サイト情報</h4>
+            <ul>
+                <li>運営：Vector Nova Academy 運営事務局</li>
+                <li>メール：<a href="mailto:vector.nova@gmail.com">vector.nova@gmail.com</a></li>
+                <li>営業時間：10:00〜22:00（年中無休）</li>
+            </ul>
+        </div>
+
+        <!-- リンク -->
+        <div class="footer-section links">
+            <h4>リンク</h4>
+            <ul>
+                <li><a href="/policy">ポリシー</a></li>
+                <li><a href="/pricing">料金プラン</a></li>
+            </ul>
+        </div>
+
+        <!-- SNS -->
+        <div class="footer-section social">
+            <h4>SNS</h4>
+            <div class="footer-social-icons">
+                <a href="#"><img src="{{ url_for('static', filename='images/twitter.png') }}" alt="X"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/instagram.png') }}" alt="Instagram"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/youtube.png') }}" alt="YouTube"></a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- コピーライト -->
+    <div class="footer-bottom">
+        <p>&copy; 2025 Vector Nova Academy. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script>
+// ===== カルーセルJS =====
+const track = document.querySelector('.carousel-track');
+const slides = Array.from(track.children);
+const nextButton = document.querySelector('.carousel-btn.next');
+const prevButton = document.querySelector('.carousel-btn.prev');
+const nav = document.querySelector('.carousel-nav');
+let currentSlide = 0;
+
+// ページネーション作成
+slides.forEach((_, index) => {
+    const btn = document.createElement('button');
+    if(index === 0) btn.classList.add('active');
+    nav.appendChild(btn);
+    btn.addEventListener('click', () => {
+        currentSlide = index;
+        moveToSlide();
+    });
+});
+
+function moveToSlide() {
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    track.style.transform = 'translateX(-' + slideWidth * currentSlide + 'px)';
+    slides.forEach((slide, i) => slide.classList.toggle('active', i===currentSlide));
+    Array.from(nav.children).forEach((btn,i) => btn.classList.toggle('active', i===currentSlide));
+}
+
+// ボタン操作
+nextButton.addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    moveToSlide();
+});
+prevButton.addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    moveToSlide();
+});
+
+// 自動スライド
+setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    moveToSlide();
+}, 4000);
+</script>
 </body>
 </html>
