@@ -18,7 +18,7 @@ body {
     background-color: #fdfdfd;
     margin: 0;
     padding: 0;
-    word-break: keep-all;
+    word-break: break-word;
 }
 header {
     background: #b91c1c;
@@ -28,30 +28,35 @@ header {
 header h1 {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.8rem;
-    white-space: nowrap;
+    font-size: 1.6rem;
+    line-height: 1.2;
+}
+nav {
+    margin-top: 10px;
 }
 nav a {
     color: #fff;
     text-decoration: none;
-    margin-left: 20px;
+    margin-right: 15px;
     font-weight: 500;
+    display: inline-block;
     white-space: nowrap;
 }
 nav a.active {
     text-decoration: underline;
 }
 main {
-    padding: 50px 20px;
+    padding: 40px 20px;
     max-width: 1000px;
     margin: 0 auto;
 }
 h2 {
     font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     color: #1e1e1e;
+    word-break: break-word;
 }
 h2 span {
     background-color: #faff5c;
@@ -64,7 +69,7 @@ h2 span {
 /* ---------------- フェードインアニメーション ---------------- */
 .fade-in {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(30px);
     animation: fadeInUp 0.9s ease forwards;
 }
 @keyframes fadeInUp {
@@ -81,35 +86,37 @@ h2 span {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    min-height: 400px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    min-height: 350px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
     transition: transform 0.35s, box-shadow 0.35s;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     margin-bottom: 50px;
 }
 .qanda-card:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 30px 70px rgba(0,0,0,0.25);
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.2);
 }
 .qanda-card .card-content {
     position: relative;
-    background: rgba(255,255,255,0.88);
-    padding: 25px;
+    background: rgba(255,255,255,0.92);
+    padding: 20px;
     border-radius: 15px;
     width: 100%;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(4px);
     animation: float 3s ease-in-out infinite;
+    word-break: break-word;
 }
 .qanda-card h3 {
-    margin: 0 0 15px 0;
+    margin: 0 0 12px 0;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     color: #b91c1c;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
 }
 
 /* ---------------- 匿名カード ---------------- */
@@ -117,9 +124,6 @@ h2 span {
     background-image: 
         url('{{ url_for('static', filename='images/anonymous.png') }}'),
         url('{{ url_for('static', filename='images/anonymous_card.png') }}');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 /* ---------------- プランカード ---------------- */
@@ -127,29 +131,23 @@ h2 span {
     background-image: 
         url('{{ url_for('static', filename='images/plan.png') }}'),
         url('{{ url_for('static', filename='images/plan_card.png') }}');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 .plan-info-card ul { padding-left: 20px; margin: 0; }
-.plan-info-card li { margin-bottom: 12px; line-height: 1.6; }
+.plan-info-card li { margin-bottom: 10px; line-height: 1.5; }
 .plan-name { color: #b91c1c; font-weight: 700; }
 
 /* ---------------- タイムラインカード ---------------- */
 .timeline-card {
     background-image: url('{{ url_for('static', filename='images/timelines.png') }}');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    padding: 25px 20px;
+    padding: 20px;
 }
 .timeline-card h3 {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     text-align: center;
     background: rgba(255,255,255,0.9);
     display: inline-block;
-    padding: 10px 15px;
-    border-radius: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
 }
 .timeline {
     display: flex;
@@ -163,96 +161,99 @@ h2 span {
     align-items: center;
     text-align: center;
     flex: 1 1 250px;
-    min-width: 200px;
+    min-width: 180px;
     animation: float 4s ease-in-out infinite;
-    word-break: break-word;
-    white-space: normal;
 }
 .timeline-step img {
-    width: 140px;
-    border-radius: 15px;
+    width: 100%;
+    max-width: 180px;
+    border-radius: 12px;
     margin-bottom: 10px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 .timeline-step .step-text {
-    background: rgba(255,255,255,0.92);
-    padding: 12px;
-    border-radius: 12px;
-    line-height: 1.6;
+    background: rgba(255,255,255,0.9);
+    padding: 10px;
+    border-radius: 10px;
+    line-height: 1.5;
     font-size: 0.95rem;
     word-break: break-word;
-    white-space: normal;
 }
 
 /* ---------------- FAQカード ---------------- */
-.faq-card { background-color: #fff; padding: 40px 20px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-.faq-card .card-content { background: rgba(255,255,255,0.95); padding: 25px; border-radius: 15px; animation: float 3.5s ease-in-out infinite; }
-.faq-item { margin-bottom: 18px; display: flex; align-items: center; }
-.faq-question { width: 100%; text-align: left; padding: 14px 15px 14px 55px; background: none; border: none; font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 600; color: #1e1e1e; cursor: pointer; outline: none; position: relative; transition: background-color 0.25s; }
+.faq-card { background-color: #fff; padding: 30px 15px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+.faq-card .card-content { background: rgba(255,255,255,0.95); padding: 20px; border-radius: 15px; animation: float 3s ease-in-out infinite; }
+.faq-item { margin-bottom: 15px; display: flex; flex-direction: column; }
+.faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 12px 15px;
+    background: #fff;
+    border: 1px solid #eee;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e1e1e;
+    cursor: pointer;
+    outline: none;
+    border-radius: 8px;
+    position: relative;
+    transition: background-color 0.25s;
+}
 .faq-question:hover { background-color: rgba(185,28,28,0.05); }
 .faq-question::after { content: '▼'; position: absolute; right: 15px; font-size: 0.8rem; color: #b91c1c; transition: transform 0.3s; }
-.faq-answer { display: none; padding: 12px 15px; font-size: 0.95rem; line-height: 1.6; border-left: 3px solid #b91c1c; margin-top: 5px; background: rgba(255,255,255,0.88); border-radius: 8px; }
+.faq-answer { display: none; padding: 10px 12px; font-size: 0.9rem; line-height: 1.5; border-left: 3px solid #b91c1c; margin-top: 5px; background: rgba(255,255,255,0.88); border-radius: 8px; }
 
 /* ---------------- CTA ---------------- */
 .cta-wrapper { margin-top: 25px; margin-bottom: 60px; text-align: center; }
-.cta-button { max-width: 450px; background: #b91c1c; color: #fff; font-weight: 700; padding: 14px 22px; border-radius: 10px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; text-decoration: none; transition: transform 0.3s, background 0.3s; }
-.cta-button:hover { background: #9a1616; transform: translateY(-3px); }
+.cta-button {
+    max-width: 450px;
+    width: 100%;
+    background: #b91c1c;
+    color: #fff;
+    font-weight: 700;
+    padding: 12px 20px;
+    border-radius: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: transform 0.3s, background 0.3s;
+}
+.cta-button:hover { background: #9a1616; transform: translateY(-2px); }
 .free-badge { display: inline-block; background: #00bcd4; color: #fff; font-weight: 700; padding: 6px 12px; border-radius: 10px; margin-bottom: 12px; }
-footer { background: #b91c1c; color: #fff; text-align: center; padding: 20px 0; margin-top: 50px; }
+footer { background: #b91c1c; color: #fff; text-align: center; padding: 20px 10px; margin-top: 50px; }
 
 /* ===================== レスポンシブ調整 ===================== */
 @media (max-width: 768px) {
     main {
-        padding: 30px 15px;
+        padding: 25px 15px;
     }
 
     h2 {
-        font-size: 2rem;
-        margin-bottom: 40px;
+        font-size: 1.8rem;
+        margin-bottom: 30px;
     }
+
+    header h1 { font-size: 1.4rem; }
+    nav a { margin-right: 10px; font-size: 0.9rem; }
 
     /* カードパディング縮小 */
-    .qanda-card .card-content {
-        padding: 20px;
-    }
+    .qanda-card .card-content { padding: 15px; }
+    .timeline-step img { max-width: 100%; height: auto; }
+    .timeline-step .step-text { font-size: 0.9rem; padding: 8px; }
+    .faq-question { font-size: 0.95rem; padding: 10px 12px; }
+    .faq-answer { font-size: 0.88rem; padding: 8px 10px; }
 
     /* タイムライン縦並び */
-    .timeline {
-        flex-direction: column;
-        gap: 25px;
-        align-items: center;
-    }
-    .timeline-step {
-        flex: 1 1 100%;
-        min-width: unset;
-    }
-    .timeline-step img {
-        width: 100%;
-        max-width: 200px;
-        margin-bottom: 12px;
-    }
-    .timeline-step .step-text {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-
-    /* FAQ文字サイズ調整 */
-    .faq-question {
-        font-size: 0.95rem;
-        padding: 12px 15px 12px 50px;
-    }
-    .faq-answer {
-        font-size: 0.9rem;
-        padding: 10px 12px;
-    }
+    .timeline { flex-direction: column; gap: 20px; align-items: center; }
+    .timeline-step { min-width: unset; }
 
     /* CTAボタン幅調整 */
-    .cta-button {
-        width: 90%;
-        font-size: 1rem;
-    }
+    .cta-button { width: 95%; font-size: 0.95rem; }
 
-    /* anonymous / plan-imageなどもカード内で自然に縮小 */
+    /* 背景画像カード縮小 */
     .anonymous-card, .plan-info-card, .timeline-card, .faq-card {
         min-height: auto;
         background-size: contain;
@@ -357,7 +358,6 @@ footer { background: #b91c1c; color: #fff; text-align: center; padding: 20px 0; 
     </div>
 </main>
 
-<!-- ===================== フッター ===================== -->
 <footer class="site-footer">
     <div class="footer-container">
         <div class="footer-section about">
@@ -395,19 +395,15 @@ footer { background: #b91c1c; color: #fff; text-align: center; padding: 20px 0; 
     </div>
 </footer>
 
-<!-- ===================== FAQスクリプト ===================== -->
 <script>
 document.querySelectorAll('.faq-question').forEach(button => {
     button.addEventListener('click', () => {
         const answer = button.nextElementSibling;
         const isVisible = answer.style.display === 'block';
         document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
-        if (!isVisible) {
-            answer.style.display = 'block';
-        }
+        if (!isVisible) answer.style.display = 'block';
     });
 });
 </script>
-
 </body>
 </html>
