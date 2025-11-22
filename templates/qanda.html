@@ -329,19 +329,18 @@ footer { background: #b91c1c; color: #fff; text-align: center; padding: 20px 10p
 </style>
 </head>
 <body>
-<!-- ===== ヘッダー ===== -->
+    <!-- ===================== ヘッダー ===================== -->
 <header>
     <div class="header-container">
         <h1>Vector Nova Academy</h1>
         <nav>
             <a href="{{ url_for('index') }}">ホーム</a>
             <a href="{{ url_for('pricing') }}">料金プラン</a>
-            <a href="{{ url_for('policy') }}">ポリシー</a>
-            <a href="{{ url_for('qanda') }}" class="active">質問・添削</a>
+            <a href="{{ url_for('policy') }}" class="active">ポリシー</a>
+            <a href="{{ url_for('qanda') }}">質問・添削</a>
         </nav>
     </div>
 </header>
-
 
 <!-- ===== Heroセクション ===== -->
 <div class="policy-hero">
