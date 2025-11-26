@@ -279,7 +279,7 @@ nav a:hover::after {
     width: 100%;
     font-size: 1.25rem;
     padding: 18px 0;
-    background: linear-gradient(135deg, #41f63b, #63f1a5);
+    background: linear-gradient(135deg, #3bb91c, #3bb91c);
     color: #fff;
     border-radius: 60px;
     box-shadow: 0 15px 25px rgba(0,0,0,0.1);
