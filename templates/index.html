@@ -8,185 +8,65 @@
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 
+<!-- 外部CSS -->
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 <style>
-/* ================= カルーセル ================= */
-.carousel {
-  position: relative;
-  max-width: 900px;
-  margin: 40px auto;
-  overflow: hidden;
-  border-radius: 15px;
-}
+/* ==================== 基本設定 ==================== */
+* { box-sizing: border-box; margin:0; padding:0; }
+body { font-family:'Roboto',sans-serif; background:#fefefe; color:#1e1e1e; line-height:1.8; overflow-x:hidden; }
 
-.carousel-track-container {
-  overflow: hidden;
-}
+/* ==================== ヘッダー ==================== */
+header { background:#b91c1c; color:#fff; padding:20px 0; text-align:center; box-shadow:0 5px 25px rgba(0,0,0,0.2);}
+header h1 { font-family:'Poppins',sans-serif; font-size:2.8rem; font-weight:700; text-shadow:2px 2px 8px rgba(0,0,0,0.3); margin-bottom:8px;}
+nav { display:flex; justify-content:center; gap:16px;}
+nav a { position:relative; display:inline-flex; align-items:center; justify-content:center; padding:10px 20px; text-decoration:none; color:#fff; font-weight:600; border-radius:12px 12px 0 0; background:#b91c1c; transition:0.3s; cursor:pointer; opacity:0.7;}
+nav a.active { font-weight:800; opacity:1; text-shadow:1px 1px 4px rgba(0,0,0,0.5); }
+nav a:hover { background:#f87171; transform:translateY(-2px); }
+nav a::after { content:""; position:absolute; left:0; bottom:6px; width:100%; height:8px; background:linear-gradient(90deg, rgba(252,255,0,0.3) 0%, rgba(252,255,0,0.5) 50%, rgba(252,255,0,0.3) 100%); border-radius:2px; filter:blur(1px); opacity:0.5; transition:all 0.3s; }
+nav a.active::after { background:linear-gradient(90deg, rgba(252,255,0,0.7) 0%, rgba(255,255,0,0.9) 50%, rgba(252,255,0,0.7) 100%); height:12px; opacity:1; transform:rotate(-1.5deg) scaleX(1.1);}
 
-.carousel-track {
-  display: flex;
-  transition: transform 0.6s ease-in-out;
-}
+/* ==================== カルーセル ==================== */
+.carousel { position:relative; max-width:900px; margin:40px auto; overflow:hidden; border-radius:15px;}
+.carousel-track-container { overflow:hidden; position:relative; height:250px;}
+.carousel-track { display:flex; transition:transform 0.6s ease-in-out; gap:0;}
+.carousel-slide { min-width:100%; flex-shrink:0; opacity:0; transition:opacity 0.6s; position:absolute; top:0; left:0;}
+.carousel-slide.active { opacity:1; position:relative;}
+.carousel-slide img { width:100%; height:250px; object-fit:cover; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.25);}
+.carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:#fff; border:none; padding:12px 16px; cursor:pointer; border-radius:50%; font-size:24px; z-index:2; transition:0.3s;}
+.carousel-btn:hover { background:rgba(0,0,0,0.8); }
+.carousel-btn.prev { left:10px; } .carousel-btn.next { right:10px; }
+.carousel-nav { text-align:center; margin-top:10px;}
+.carousel-nav button { width:12px; height:12px; border-radius:50%; border:none; margin:0 5px; background:#bbb; cursor:pointer; transition:0.3s;}
+.carousel-nav button.active { background:#b91c1c; }
 
-.carousel-slide {
-  min-width: 100%;
-  flex-shrink: 0;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-  position: relative;
-  opacity: 0.5;
-  transform: scale(0.9);
-}
+/* ==================== ヒーロー ==================== */
+.hero { text-align:center; padding:30px 20px; }
+.hero-title { font-family:'Poppins',sans-serif; font-size:1.8rem; font-weight:700; margin-bottom:12px; }
+.highlight { color:#b91c1c; background:#faff5c; padding:2px 6px; border-radius:4px; }
+.hero-subtitle { font-size:1rem; margin-bottom:20px; }
 
-.carousel-slide.active {
-  opacity: 1;
-  transform: scale(1);
-}
+/* 特徴カード */
+.features { display:flex; flex-direction:column; gap:8px; margin:15px auto; max-width:450px; font-family:'Montserrat',sans-serif; }
+.features span { background:linear-gradient(120deg,#fffa8c55,#fffa8c33); padding:10px 14px; border-radius:6px; border-left:4px solid #faff5c; display:flex; align-items:center; font-weight:600; font-size:0.95rem;}
+.features span::before { content:"✔"; color:#b91c1c; margin-right:8px; }
 
-.carousel-slide img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-  transition: transform 0.3s;
-}
+/* CTAボタン */
+.cta-wrapper { position:relative; display:flex; flex-direction:column; justify-content:center; align-items:center; margin:20px auto 50px; max-width:450px; text-align:center; }
+.free-badge { position:absolute; top:-28px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#f87171,#b91c1c); color:#fff; font-weight:700; font-size:1rem; padding:6px 14px; border-radius:20px; box-shadow:0 4px 10px rgba(0,0,0,0.2); z-index:10; animation:float-badge 1.5s ease-in-out infinite; }
+@keyframes float-badge {0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-6px);}}
+.cta-button { width:100%; background:linear-gradient(135deg,#3bb91c,#3bb91c); color:#fff; padding:16px 0; border-radius:60px; font-size:1.25rem; font-weight:700; text-decoration:none; display:flex; justify-content:center; transition:all 0.35s ease;}
+.cta-button:hover { transform:translateY(-4px) scale(1.03); box-shadow:0 18px 35px rgba(0,0,0,0.15); }
 
-/* 矢印ボタン */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
-  color: #fff;
-  border: none;
-  padding: 12px 16px;
-  cursor: pointer;
-  border-radius: 50%;
-  font-size: 24px;
-  z-index: 2;
-  transition: background 0.3s;
-}
 
-.carousel-btn:hover {
-  background-color: rgba(0,0,0,0.8);
-}
-
-.carousel-btn.prev { left: 10px; }
-.carousel-btn.next { right: 10px; }
-
-/* ページネーション */
-.carousel-nav {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.carousel-nav button {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: none;
-  margin: 0 5px;
-  background-color: #bbb;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.carousel-nav button.active {
-  background-color: #b91c1c;
-}
-
-/* ================= ヒーローセクション ================= */
-.hero {
-  text-align: center;
-  padding: 30px 20px;
-}
-
-.hero-title { font-size: 1.8rem; }
-.highlight { color: #b91c1c; }
-
-.features {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 15px;
-  font-size: 0.95rem;
-}
-
-.cta-button {
-  background-color: #b91c1c;
-  color: #fff;
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.free-badge {
-  background-color: #ff4757;
-  color: #fff;
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 5px;
-  margin-bottom: 8px;
-}
-
-/* ================= フッター ================= */
-.site-footer {
-  width: 100%;
-  background-color: #b91c1c;
-  color: #fff;
-  padding: 50px 0 20px;
-  margin-top: 60px;
-  font-family: 'Roboto', sans-serif;
-  word-break: break-word;
-}
-
-.footer-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.footer-section {
-  flex: 1 1 220px;
-  margin: 10px;
-}
-
-.footer-section h3, .footer-section h4 {
-  margin-bottom: 10px;
-}
-
-.footer-section a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.footer-section a:hover {
-  text-decoration: underline;
-}
-
-.footer-social-icons a img {
-  width: 24px;
-  height: 24px;
-  margin-right: 8px;
-}
-
-.footer-bottom {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 0.9rem;
-  color: #f0f0f0;
-}
-
-/* スマホ対応 */
-@media(max-width: 768px) { .carousel-slide img { height: 180px; } }
-@media(max-width: 480px) { .carousel-slide img { height: 140px; } .footer-container { flex-direction: column; align-items: center; } }
+/* ==================== レスポンシブ ==================== */
+@media(max-width:900px){.footer-container{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}}
+@media(max-width:768px){.carousel-track-container{height:180px;}.hero-title{font-size:1.6rem;}}
+@media(max-width:480px){.carousel-track-container{height:140px;}.footer-container{grid-template-columns:1fr; text-align:center; justify-items:center;}}
 </style>
 </head>
 <body>
+
 <header>
     <div class="header-container">
         <h1>Vector Nova Academy</h1>
@@ -201,45 +81,37 @@
 
 <main>
 
-    <!-- カルーセルスライドショー -->
-    <section class="carousel">
-        <div class="carousel-track-container">
-            <ul class="carousel-track">
-                <li class="carousel-slide active"><img src="{{ url_for('static', filename='images/image2.PNG') }}" alt="メイン画像"></li>
-                <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner1.png') }}" alt="バナー1"></li>
-                <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner2.png') }}" alt="バナー2"></li>
-                <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner3.png') }}" alt="バナー3"></li>
-                <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner4.png') }}" alt="バナー4"></li>
-            </ul>
-        </div>
-        <button class="carousel-btn prev">&lt;</button>
-        <button class="carousel-btn next">&gt;</button>
-        <div class="carousel-nav"></div>
-    </section>
+<!-- カルーセル -->
+<section class="carousel">
+    <div class="carousel-track-container">
+        <ul class="carousel-track">
+            <li class="carousel-slide active"><img src="{{ url_for('static', filename='images/banner1.png') }}" alt="メイン画像"></li>
+            <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner2.png') }}" alt="バナー2"></li>
+            <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner3.png') }}" alt="バナー3"></li>
+            <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner4.png') }}" alt="バナー4"></li>
+        </ul>
+    </div>
+    <button class="carousel-btn prev">&lt;</button>
+    <button class="carousel-btn next">&gt;</button>
+    <div class="carousel-nav"></div>
+</section>
 
-    <!-- ヒーローセクション -->
-    <section class="hero">
-        <div class="hero-content">
-            <h2 class="hero-title">
-                名大生運営の<br>
-                <span class="highlight">完全オンライン添削質問塾</span>
-            </h2>
-            <p class="hero-subtitle">Vector Nova Academyは、誰でも質問・添削依頼ができるオンライン塾です。</p>
+<!-- ヒーロー -->
+<section class="hero">
+    <h2 class="hero-title">名大生運営の<br><span class="highlight">完全オンライン添削質問塾</span></h2>
+    <p class="hero-subtitle">Vector Nova Academyは、誰でも質問・添削依頼ができるオンライン塾です。</p>
 
-            <div class="features">
-                <span>LINEとGoogle Formsで無料の質問・添削が可能</span>
-                <span>名大生による安心・高品質サポート</span>
-                <span>お手頃な有料プランで無制限開放</span>
-            </div>
+    <div class="features">
+        <span>LINEとGoogle Formsで無料の質問・添削が可能</span>
+        <span>名大生による安心・高品質サポート</span>
+        <span>お手頃な有料プランで無制限開放</span>
+    </div>
 
-            <div class="cta-wrapper" style="margin-top:20px; margin-bottom:50px; max-width:450px; margin-left:auto; margin-right:auto;">
-                <div class="free-badge">無料！</div>
-                <a href="{{ url_for('business_line') }}" class="cta-button" style="width:100%; text-decoration:none; display:flex; justify-content:center;">
-                    🚀 LINEで質問・添削依頼を送る
-                </a>
-            </div>
-        </div>
-    </section>
+    <div class="cta-wrapper">
+        <div class="free-badge">無料！</div>
+        <a href="{{ url_for('business_line') }}" class="cta-button">🚀 LINEで質問・添削依頼を送る</a>
+    </div>
+</section>
 
 </main>
 
@@ -261,7 +133,7 @@
             <h4>サイト情報</h4>
             <ul>
                 <li>運営：Vector Nova Academy 運営事務局</li>
-                <li>メール：<a href="vector.nova@gmail.com">vector.nova@gmail.com</a></li>
+                <li>メール：<a href="mailto:vector.nova@gmail.com">vector.nova@gmail.com</a></li>
                 <li>営業時間：10:00〜22:00（年中無休）</li>
             </ul>
         </div>
@@ -270,10 +142,10 @@
         <div class="footer-section links">
             <h4>リンク</h4>
             <ul>
-                <li><a href="/index">ホーム</a></li>
-                <li><a href="/policy">利用規約</a></li>
-                <li><a href="/pricing">料金プラン</a></li>
-                <li><a href="/qanda">質問・添削ページ</a></li>
+                <li><a href="{{ url_for('index') }}">ホーム</a></li>
+                <li><a href="{{ url_for('policy') }}">利用規約</a></li>
+                <li><a href="{{ url_for('pricing') }}">料金プラン</a></li>
+                <li><a href="{{ url_for('qanda') }}">質問・添削ページ</a></li>
             </ul>
         </div>
 
@@ -296,9 +168,6 @@
 </footer>
 
 
-
-
-
 <script>
 // ===== カルーセルJS =====
 const track = document.querySelector('.carousel-track');
@@ -316,31 +185,23 @@ slides.forEach((_, index) => {
     btn.addEventListener('click', () => {
         currentSlide = index;
         moveToSlide();
+        resetInterval();
     });
 });
 
 function moveToSlide() {
-    const slideWidth = slides[0].getBoundingClientRect().width;
-    track.style.transform = 'translateX(-' + slideWidth * currentSlide + 'px)';
-    slides.forEach((slide, i) => slide.classList.toggle('active', i===currentSlide));
-    Array.from(nav.children).forEach((btn,i) => btn.classList.toggle('active', i===currentSlide));
+    slides.forEach((slide,i)=>slide.classList.toggle('active',i===currentSlide));
+    Array.from(nav.children).forEach((btn,i)=>btn.classList.toggle('active',i===currentSlide));
 }
 
 // ボタン操作
-nextButton.addEventListener('click', () => {
-    currentSlide = (currentSlide + 1) % slides.length;
-    moveToSlide();
-});
-prevButton.addEventListener('click', () => {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    moveToSlide();
-});
+nextButton.addEventListener('click', ()=>{ currentSlide=(currentSlide+1)%slides.length; moveToSlide(); resetInterval(); });
+prevButton.addEventListener('click', ()=>{ currentSlide=(currentSlide-1+slides.length)%slides.length; moveToSlide(); resetInterval(); });
 
 // 自動スライド
-setInterval(() => {
-    currentSlide = (currentSlide + 1) % slides.length;
-    moveToSlide();
-}, 4000);
+let autoSlide = setInterval(()=>{ currentSlide=(currentSlide+1)%slides.length; moveToSlide(); },4000);
+function resetInterval(){ clearInterval(autoSlide); autoSlide=setInterval(()=>{ currentSlide=(currentSlide+1)%slides.length; moveToSlide(); },4000);}
+window.addEventListener('resize', moveToSlide);
 </script>
 </body>
 </html>
