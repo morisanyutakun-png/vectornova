@@ -26,19 +26,7 @@ nav a:hover { background:#f87171; transform:translateY(-2px); }
 nav a::after { content:""; position:absolute; left:0; bottom:6px; width:100%; height:8px; background:linear-gradient(90deg, rgba(252,255,0,0.3) 0%, rgba(252,255,0,0.5) 50%, rgba(252,255,0,0.3) 100%); border-radius:2px; filter:blur(1px); opacity:0.5; transition:all 0.3s; }
 nav a.active::after { background:linear-gradient(90deg, rgba(252,255,0,0.7) 0%, rgba(255,255,0,0.9) 50%, rgba(252,255,0,0.7) 100%); height:12px; opacity:1; transform:rotate(-1.5deg) scaleX(1.1);}
 
-/* ==================== カルーセル ==================== */
-.carousel { position:relative; max-width:900px; margin:40px auto; overflow:hidden; border-radius:15px;}
-.carousel-track-container { overflow:hidden; position:relative; height:250px;}
-.carousel-track { display:flex; transition:transform 0.6s ease-in-out; gap:0;}
-.carousel-slide { min-width:100%; flex-shrink:0; opacity:0; transition:opacity 0.6s; position:absolute; top:0; left:0;}
-.carousel-slide.active { opacity:1; position:relative;}
-.carousel-slide img { width:100%; height:250px; object-fit:cover; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.25);}
-.carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:#fff; border:none; padding:12px 16px; cursor:pointer; border-radius:50%; font-size:24px; z-index:2; transition:0.3s;}
-.carousel-btn:hover { background:rgba(0,0,0,0.8); }
-.carousel-btn.prev { left:10px; } .carousel-btn.next { right:10px; }
-.carousel-nav { text-align:center; margin-top:10px;}
-.carousel-nav button { width:12px; height:12px; border-radius:50%; border:none; margin:0 5px; background:#bbb; cursor:pointer; transition:0.3s;}
-.carousel-nav button.active { background:#b91c1c; }
+
 
 /* ==================== ヒーロー ==================== */
 .hero { text-align:center; padding:30px 20px; }
@@ -143,8 +131,8 @@ nav a.active::after { background:linear-gradient(90deg, rgba(252,255,0,0.7) 0%, 
             <h4>リンク</h4>
             <ul>
                 <li><a href="{{ url_for('index') }}">ホーム</a></li>
-                <li><a href="{{ url_for('policy') }}">利用規約</a></li>
                 <li><a href="{{ url_for('pricing') }}">料金プラン</a></li>
+                <li><a href="/policy">ポリシー</a></li>
                 <li><a href="{{ url_for('qanda') }}">質問・添削ページ</a></li>
             </ul>
         </div>

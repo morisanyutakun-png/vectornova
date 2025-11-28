@@ -71,14 +71,40 @@ h2 span { background-color: #faff5c; padding: 2px 10px; border-radius: 5px; disp
     margin-bottom: 40px;
 }
 .qanda-card:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 25px 60px rgba(0,0,0,0.2); }
-.qanda-card .card-content { position: relative; background: rgba(255,255,255,0.92); padding: 20px; border-radius: 15px; width: 100%; backdrop-filter: blur(4px); animation: float 3s ease-in-out infinite; }
 
 /* カード背景 */
+.qanda-card .card-content {
+    position: relative;
+    background: rgba(255,255,255,0.92);
+    padding: 20px;
+    border-radius: 15px;
+    width: 100%;
+    backdrop-filter: blur(4px);
+}
+
+/* FAQカードのみ高さ自動・上詰め・見切れ防止 */
+.qanda-card.faq-card {
+    min-height: unset;
+    height: auto;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.qanda-card.faq-card .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* 匿名カード */
 .anonymous-card {
     background-image:
         url("{{ url_for('static', filename='images/anonymous_card.png') }}"),
         url("{{ url_for('static', filename='images/anonymous.png') }}");
 }
+
+/* プランカード */
 .plan-info-card {
     background-image:
         url("{{ url_for('static', filename='images/plan_card.png') }}"),
@@ -87,6 +113,7 @@ h2 span { background-color: #faff5c; padding: 2px 10px; border-radius: 5px; disp
 .plan-info-card ul { padding-left: 20px; margin: 0; }
 .plan-info-card li { margin-bottom: 10px; line-height: 1.5; }
 
+/* タイムラインカード */
 .timeline-card {
     background-image: url("{{ url_for('static', filename='images/timelines.png') }}");
     background-size: contain;
@@ -97,8 +124,6 @@ h2 span { background-color: #faff5c; padding: 2px 10px; border-radius: 5px; disp
 .timeline { display: flex; gap: 20px; justify-content: space-between; flex-wrap: wrap; }
 .timeline-step { display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1 1 250px; min-width: 200px; animation: float 4s ease-in-out infinite; }
 .timeline-step img { width: 100%; max-width: 180px; border-radius: 12px; margin-bottom: 10px; }
-
-.faq-card { background-color: #fff; padding: 25px 15px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
 
 /* FAQアコーディオン */
 .faq-question {
@@ -120,21 +145,23 @@ h2 span { background-color: #faff5c; padding: 2px 10px; border-radius: 5px; disp
 .faq-question:hover { background: #fb7f7f; }
 
 .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
+    display: none;               /* 初期は非表示 */
     background: #fff;
-    padding: 0 16px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     border-left: 3px solid #b91c1c;
-    margin-bottom: 10px;
+    overflow: visible;           /* 切れないように */
+    line-height: 1.6;
 }
 
-.faq-answer.open { padding: 10px 16px; }
-
-/* 矢印 */
-.faq-question .arrow {
-    transition: transform 0.3s ease;
+.faq-answer.open {
+    display: block;              /* open時に表示 */
+    max-height: none;            /* 高さ制限なし */
 }
+
+
+.faq-question .arrow { transition: transform 0.3s ease; }
 .faq-question.active .arrow { transform: rotate(90deg); }
 
 .cta-wrapper { margin-top: 25px; margin-bottom: 60px; text-align: center; }
@@ -154,10 +181,10 @@ footer {
     h2 { font-size: 1.6rem; }
     nav a { font-size: 0.85rem; padding: 6px 12px; }
     .qanda-card { min-height: 250px; background-size: contain; background-position: center top; }
+    .qanda-card.faq-card { min-height: unset; overflow: visible; justify-content: flex-start; }
     .timeline { flex-direction: column; align-items: center; }
     .timeline-step { min-width: unset; width: 100%; max-width: 300px; margin-bottom: 20px; }
     .cta-button { width: 95%; }
-    .faq-card { padding: 20px 12px; }
 }
 </style>
 </head>
@@ -175,12 +202,23 @@ footer {
     </div>
 </header>
 
-<div class="policy-hero">
-    <h1 class="hero-title">質問・添削</h1>
-    <p class="hero-subtitle">よくある質問と回答</p>
-</div>
+
 
 <main>
+    <!-- カルーセル -->
+<section class="carousel">
+    <div class="carousel-track-container">
+        <ul class="carousel-track">
+            <li class="carousel-slide active"><img src="{{ url_for('static', filename='images/banner1.png') }}" alt="メイン画像"></li>
+            <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner2.png') }}" alt="バナー2"></li>
+            <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner3.png') }}" alt="バナー3"></li>
+            <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner4.png') }}" alt="バナー4"></li>
+        </ul>
+    </div>
+    <button class="carousel-btn prev">&lt;</button>
+    <button class="carousel-btn next">&gt;</button>
+    <div class="carousel-nav"></div>
+</section>
     <h2><span>質問・添削サービス</span>について</h2>
 
     <!-- 匿名カード -->
@@ -231,112 +269,72 @@ footer {
     </section>
 
     <!-- FAQカード -->
-<section class="qanda-card faq-card fade-in" style="animation-delay:0.6s;">
-    <div class="card-content">
-        <h3>💡 よくある質問 (FAQ)</h3>
+    <section class="qanda-card faq-card fade-in" style="animation-delay:0.6s;">
+        <div class="card-content">
+            <h3>💡 よくある質問 (FAQ)</h3>
 
-        <div class="faq-item">
-            <button class="faq-question">
-                回答はどれくらいで届きますか？
-                <span class="arrow">▶</span>
-            </button>
-            <div class="faq-answer">
-                プランに応じて数時間〜数日でお届け。有料プランは優先対応でスピーディです。
+            <div class="faq-item">
+                <button class="faq-question">
+                    回答はどれくらいで届きますか？
+                    <span class="arrow">▶</span>
+                </button>
+                <div class="faq-answer">
+                    プランに応じて数時間〜数日でお届け。有料プランは優先対応でスピーディです。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    質問の修正やキャンセルはできますか？
+                    <span class="arrow">▶</span>
+                </button>
+                <div class="faq-answer">
+                    送信後は原則修正不可です。送信前に内容をご確認ください。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    個人情報の取り扱いについて教えてください。
+                    <span class="arrow">▶</span>
+                </button>
+                <div class="faq-answer">
+                    提供情報は回答作成のみに使用し厳重管理します。詳細はポリシーをご確認ください。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    著作権や倫理に反する質問はできますか？
+                    <span class="arrow">▶</span>
+                </button>
+                <div class="faq-answer">
+                    できません。法令・倫理に反する内容は受け付けていません。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    その他の質問
+                    <span class="arrow">▶</span>
+                </button>
+                <div class="faq-answer">
+                    その他の疑問についてもお気軽にお問い合わせください。
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="faq-item">
-            <button class="faq-question">
-                質問の修正やキャンセルはできますか？
-                <span class="arrow">▶</span>
-            </button>
-            <div class="faq-answer">
-                送信後は原則修正不可です。送信前に内容をご確認ください。
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question">
-                個人情報の取り扱いについて教えてください。
-                <span class="arrow">▶</span>
-            </button>
-            <div class="faq-answer">
-                提供情報は回答作成のみに使用し厳重管理します。詳細はポリシーをご確認ください。
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question">
-                著作権や倫理に反する質問はできますか？
-                <span class="arrow">▶</span>
-            </button>
-            <div class="faq-answer">
-                できません。法令・倫理に反する内容は受け付けていません。
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question">
-                その他の質問
-                <span class="arrow">▶</span>
-            </button>
-            <div class="faq-answer">
-                その他の疑問についてもお気軽にお問い合わせください。
-            </div>
-        </div>
+    <!-- CTA -->
+    <div class="cta-wrapper fade-in" style="animation-delay:0.8s;">
+        <div class="free-badge">無料！</div>
+        <a href="{{ url_for('business_line') }}" class="cta-button">
+            🚀 LINEで質問・添削依頼を送る
+        </a>
     </div>
-</section>
+</main>
 
-<!-- CTA -->
-<div class="cta-wrapper fade-in" style="animation-delay:0.8s;">
-    <div class="free-badge">無料！</div>
-    <a href="{{ url_for('business_line') }}" class="cta-button">
-        🚀 LINEで質問・添削依頼を送る
-    </a>
-</div>
-
-<!-- FAQ用CSS -->
-<style>
-.faq-card { 
-    background-color: #fff; 
-    padding: 25px 15px; 
-    border-radius: 20px; 
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
-}
-.faq-question {
-    width: 100%;
-    text-align: left;
-    background: #f87171;
-    color: #fff;
-    border: none;
-    padding: 12px 16px;
-    margin-bottom: 8px;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background 0.3s ease;
-}
-.faq-question:hover { background: #fb7f7f; }
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
-    background: #fff;
-    padding: 0 16px;
-    border-left: 3px solid #b91c1c;
-    margin-bottom: 10px;
-}
-.faq-answer.open { padding: 10px 16px; }
-.faq-question .arrow { transition: transform 0.3s ease; }
-.faq-question.active .arrow { transform: rotate(90deg); }
-</style>
-
-<!-- FAQ用JS -->
 <script>
-// FAQアコーディオン滑らか開閉
 document.querySelectorAll('.faq-question').forEach(button => {
     button.addEventListener('click', () => {
         const answer = button.nextElementSibling;
@@ -358,21 +356,14 @@ document.querySelectorAll('.faq-question').forEach(button => {
     });
 });
 </script>
-</main>
- <!-- ===================== フッター ===================== -->
+
 <footer class="site-footer">
     <div class="footer-container">
-
-        <!-- アバウト -->
         <div class="footer-section about">
             <h3>Vector Nova Academy</h3>
-            <p>
-                質問対応・添削・学習管理を中心としたオンライン個別サポート塾。
-                高校生・大学受験生向けに、効率的な学習習慣づくりを支援します。
-            </p>
+            <p>質問対応・添削・学習管理を中心としたオンライン個別サポート塾。
+            高校生・大学受験生向けに、効率的な学習習慣づくりを支援します。</p>
         </div>
-
-        <!-- サイト情報 -->
         <div class="footer-section info">
             <h4>サイト情報</h4>
             <ul>
@@ -381,18 +372,15 @@ document.querySelectorAll('.faq-question').forEach(button => {
                 <li>営業時間：10:00〜22:00（年中無休）</li>
             </ul>
         </div>
-
-        <!-- リンク -->
         <div class="footer-section links">
             <h4>リンク</h4>
             <ul>
                 <li><a href="/index">ホーム</a></li>
+                <li><a href="/pricing">料金プラン</a></li>
                 <li><a href="/policy">ポリシー</a></li>
                 <li><a href="/qanda">質問・添削ページ</a></li>
             </ul>
         </div>
-
-        <!-- SNS -->
         <div class="footer-section social">
             <h4>SNS</h4>
             <div class="footer-social-icons">
@@ -401,10 +389,7 @@ document.querySelectorAll('.faq-question').forEach(button => {
                 <a href="#"><img src="{{ url_for('static', filename='images/youtube.png') }}" alt="YouTube"></a>
             </div>
         </div>
-
     </div>
-
-    <!-- コピーライト -->
     <div class="footer-bottom">
         <p>&copy; 2025 Vector Nova Academy. All Rights Reserved.</p>
     </div>

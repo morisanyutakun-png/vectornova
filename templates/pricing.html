@@ -28,11 +28,20 @@
 
     <!-- ===================== メイン ===================== -->
     <main>
-        <!-- ドカンと目立つ画像 -->
-        <section class="hero-image">
-            <img src="{{ url_for('static', filename='images/image3.PNG') }}" alt="メイン画像">
-        </section>
-
+        <!-- カルーセル -->
+<section class="carousel">
+    <div class="carousel-track-container">
+        <ul class="carousel-track">
+            <li class="carousel-slide active"><img src="{{ url_for('static', filename='images/banner1.png') }}" alt="メイン画像"></li>
+            <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner2.png') }}" alt="バナー2"></li>
+            <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner3.png') }}" alt="バナー3"></li>
+            <li class="carousel-slide"><img src="{{ url_for('static', filename='images/banner4.png') }}" alt="バナー4"></li>
+        </ul>
+    </div>
+    <button class="carousel-btn prev">&lt;</button>
+    <button class="carousel-btn next">&gt;</button>
+    <div class="carousel-nav"></div>
+</section>
         <!-- Heroセクション -->
         <section class="hero-pricing">
             <div class="hero-content">
@@ -257,6 +266,7 @@
             <h4>リンク</h4>
             <ul>
                 <li><a href="/index">ホーム</a></li>
+                <li><a href="/pricing">料金プラン</a></li>
                 <li><a href="/policy">ポリシー</a></li>
                 <li><a href="/qanda">質問・添削ページ</a></li>
             </ul>
